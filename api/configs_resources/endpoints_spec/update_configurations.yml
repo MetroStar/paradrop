@@ -1,0 +1,143 @@
+This endpoint is used to update configurations.
+<strong>Body must be an object containing atleast one of these fields:</strong>
+
+
+<strong>ms_teams_url</strong>
+&ensp;- URL of MS Teams server that we want to send alerts to.
+
+
+<strong>mattermost_url</strong>
+&ensp;- URL of Mattermost Server that we want to send alerts to.
+
+
+<strong>email_server</strong>
+&ensp;- Address of the email server that we want to use to send email alerts.
+
+
+<strong>email_username</strong>
+&ensp;- Username to log into the email server.
+
+
+<strong>email_password</strong>
+&ensp;- Password to log into the email server.
+
+
+<strong>alert_email</strong>
+&ensp;- Email Address where we want to send alerts.
+
+
+<strong>slack_enable</strong>
+&ensp;- Turn Slack alerts ON/OFF.
+&ensp;- Acceptable value is true or false.
+
+
+<strong>ms_teams_enable</strong>
+&ensp;- Turn MS Teams alerts ON/OFF.
+&ensp;- Acceptable value is true or false.
+
+
+<strong>mattermost_enable</strong>
+&ensp;- Turn Mattermost alerts ON/OFF.
+&ensp;- Acceptable value is true or false.
+
+
+<strong>email_enable</strong>
+&ensp;- Turn Email alerts ON/OFF.
+&ensp;- Acceptable value is true or false.        
+
+
+<strong>clean_hosts_days_interval</strong>
+&ensp;- Interval how often we want to clean all host data.
+&ensp;- Default value is 0 which means that data will never be cleaned.
+&ensp;- Must be an integer.
+
+
+<strong>clean_events_count</strong>
+&ensp;- When number of events reaches this number, clean all events data.
+&ensp;- Must be an integer.
+---
+tags:
+  - Configurations Endpoints
+
+parameters:
+  - name: X-Paradrop-Email
+    description: OPTIONAL - Email to use with user auth token
+    x-example: admin@paradrop.io
+    in: header 
+    type: string
+    required: false
+
+  - name: X-Paradrop-Token
+    in: header
+    description: OPTIONAL - User auth token for request authentication. For authentication via token, we need both email and the user token.
+    x-example: b35bf90e-dd28-4208-8cc5-62ca12c3f5bb
+    type: string
+    required: false
+
+  - name: body
+    in: body
+    required: true
+    schema:
+      type: object
+
+      properties:
+        ms_teams_url:
+          type: string
+          example: test-msteams.com
+
+        mattermost_url:
+          type: string
+          example: test-msteams.com
+
+        email_server:
+          type: string
+          example: email@server.com
+
+        email_username:
+          type: string
+          example: admin
+
+        email_password:
+          type: string
+          example: password
+
+        alert_email:
+          type: string
+          example: alert_email@email.com
+
+        slack_enable:
+          type: boolean
+          example: true
+
+        ms_teams_enable:
+          type: boolean
+          example: true
+
+        mattermost_enable:
+          type: boolean
+          example: true
+
+        email_enable:
+          type: boolean
+          example: true
+
+        clean_hosts_days_interval:
+          type: integer
+          example: 0
+
+        clean_events_count:
+          type: integer
+          example: 100000
+responses:
+  200:
+    description: Request was successful.
+  400:
+    description: Data in the request body might have been in a wrong format.
+  401:
+    description: You need to log in or use user token authentication to access this endpoint.
+  403:
+    description: You need admin rights to access this endpoint..
+  404:
+    description: Requested data not found..
+  500:
+    description: Internal server error.

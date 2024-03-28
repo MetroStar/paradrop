@@ -1,0 +1,88 @@
+/* ADDING FONTS 
+/* open-sans-regular - latin */
+@font-face {
+	font-family: 'Open Sans';
+	font-style: normal;
+	font-weight: 400;
+	src: url('../fonts/open-sans-v29-latin-regular.eot'); /* IE9 Compat Modes */
+	src: local(''),
+		url('../fonts/open-sans-v29-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+		url('../fonts/open-sans-v29-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+		url('../fonts/open-sans-v29-latin-regular.woff') format('woff'), /* Modern Browsers */
+		url('../fonts/open-sans-v29-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+		url('../fonts/open-sans-v29-latin-regular.svg#OpenSans') format('svg'); /* Legacy iOS */
+}
+
+/*  SETTING UP FONT FOR ALL ELEMENTS */
+* {
+	font-family: 'Open Sans', sans-serif;
+}
+
+/* SETTING UP THE LOOK OF THE TABLES */
+.table {
+border-spacing: 0;
+}
+
+.table tbody tr:nth-child(odd) {
+background: #e4e4e4;
+}
+
+.table td,
+.table th {
+padding: 10px;
+}
+
+.table td:first-child,
+.table th:first-child {
+border-top-left-radius: 4px;
+}
+
+.table td:last-child,
+.table th:last-child {
+border-top-right-radius: 4px;
+}
+
+.table th {
+background: #e55353;
+color: #fff;
+cursor: pointer;
+font-weight: normal;
+text-align: left;
+text-transform: capitalize;
+vertical-align: baseline;
+white-space: nowrap;
+}
+
+.table th:hover {
+color: #000;
+}
+
+.table th:hover::after {
+color: inherit;
+font-size: 1.2em;
+content: ' \025B8';
+}
+
+.table th::after {
+font-size: 1.2em;
+color: transparent;
+content: ' \025B8';
+}
+
+.table th.dir-d {
+color: #000;
+}
+
+.table th.dir-d::after {
+color: inherit;
+content: ' \025BE';
+}
+
+.table th.dir-u {
+color: #000;
+}
+
+.table th.dir-u::after {
+color: inherit;
+content: ' \025B4';
+}

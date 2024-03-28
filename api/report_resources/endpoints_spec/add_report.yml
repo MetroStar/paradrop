@@ -1,0 +1,84 @@
+This endpoint is used to add new report into the database.
+<strong>Body must be an object containing these fields:</strong>
+
+
+<strong>report_name</strong>
+&ensp;- Name of this report.
+
+
+<strong>report_description</strong>
+&ensp;- Brief description of this report.
+
+
+<strong>report_mappings</strong>
+&ensp;- Fields that we want to include in the report.
+
+<strong>Example</strong>
+&ensp;- {'Chass. Ty.' : 'chassis_type'}
+&ensp;- Chass. Ty. is a custom name that user can customize and chassis_type is the original name of the field.
+
+
+<strong>OPTIONAL:</strong>
+<strong>If we want to define our own custom report id, we can specify it in this field:</strong>
+
+
+<strong>id</strong>
+&ensp;- Custom report id.
+---
+tags:
+  - Reports Endpoints
+
+parameters:
+  - name: X-Paradrop-Email
+    description: OPTIONAL - Email to use with user auth token
+    x-example: admin@paradrop.io
+    in: header 
+    type: string
+    required: false
+
+  - name: X-Paradrop-Token
+    in: header
+    description: OPTIONAL - User auth token for request authentication. For authentication via token, we need both email and the user token.
+    x-example: b35bf90e-dd28-4208-8cc5-62ca12c3f5bb
+    type: string
+    required: false
+
+  - name: body
+    in: body
+    required: true
+    schema:
+      type: object
+      required:
+        - report_name
+        - report_description
+        - report_mappings
+
+      properties:
+        id:
+          type: string
+          example: report-id1
+
+        report_name:
+          type: string
+          example: Some Report Name
+
+        report_description:
+          type: string
+          example: Report containing chassis type and cpu count information.
+
+        report_mappings:
+          type: object
+          example: {'Chass. Ty.': 'chassis_type', 'Cpu C.': 'cpu_count'}
+responses:
+  200:
+    description: Request was successful.
+  400:
+    description: Data in the request body might have been in a wrong format.
+  401:
+    description: You need to log in or use user token authentication to access this endpoint.
+  403:
+    description: You need admin rights to access this endpoint..
+  404:
+    description: Requested data not found..
+  500:
+    description: Internal server error.

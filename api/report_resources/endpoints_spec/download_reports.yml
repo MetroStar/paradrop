@@ -1,0 +1,73 @@
+This endpoint returns reports in a csv format for users to download.
+<strong>Required parameters:</strong>
+
+
+<strong>table_headers</strong>
+&ensp;- Fields that we want to use as a table headers.
+&ensp;- Must be hyphen separated -> Ex. "Host ID-IP Address-Virtualization"
+
+
+<strong>selected_fields</strong>
+&ensp;- Fields that match the table headers that are used to retrieve data from the database.
+&ensp;- They must be in the same order as table_headers
+&ensp;- Must be hyphen separated -> Ex. "id-ip_address-virtualization"
+
+<strong>Example</strong>
+&ensp;- If we would have "IP Address-Virtualization" as a table headers
+&ensp;- Selected fields have to be like this "ip_address-virtualization"
+
+
+<strong>filename</strong>
+&ensp;- This will be the name of the file.
+---
+tags:
+  - Reports Endpoints
+
+parameters:
+  - name: X-Paradrop-Email
+    description: OPTIONAL - Email to use with user auth token
+    x-example: admin@paradrop.io
+    in: header 
+    type: string
+    required: false
+
+  - name: X-Paradrop-Token
+    in: header
+    description: OPTIONAL - User auth token for request authentication. For authentication via token, we need both email and the user token.
+    x-example: b35bf90e-dd28-4208-8cc5-62ca12c3f5bb
+    type: string
+    required: false
+
+  - in: path
+    name: table_headers
+    type: string
+    required: true
+    default: IP Address-Virtualization
+    description: Fields that will be used as headers of the table.
+
+  - in: path
+    name: selected_fields
+    type: string
+    required: true
+    default: ip_address-virtualization
+    description: Fields to get the data from.
+
+  - in: path
+    name: filename
+    type: string
+    required: true
+    default: Inventory Report
+    description: Name of the file.
+responses:
+  200:
+    description: Request was successful.
+  400:
+    description: Data in the request body might have been in a wrong format.
+  401:
+    description: You need to log in or use user token authentication to access this endpoint.
+  403:
+    description: You need admin rights to access this endpoint..
+  404:
+    description: Requested data not found..
+  500:
+    description: Internal server error.

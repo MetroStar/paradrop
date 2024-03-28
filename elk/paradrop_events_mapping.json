@@ -1,0 +1,36 @@
+{
+  "properties": {
+    "hostname": {
+      "type": "keyword",
+      "normalizer": "lowercase_normalizer"
+    },
+    "ip_address": {
+      "type": "ip",
+      "fields": {
+        "raw": {
+          "type": "keyword"
+        }
+      }
+    },
+    "timestamp": {
+      "type": "keyword"
+    },
+    "event_impact": {
+      "type": "keyword",
+      "normalizer": "lowercase_normalizer",
+      "fields": {
+        "raw": {
+          "type": "keyword"
+        }
+      }
+    },
+    "event_name": {
+      "type": "keyword",
+      "normalizer": "lowercase_normalizer"
+    },
+    "event_message": {
+      "type": "keyword",
+      "normalizer": "lowercase_normalizer"
+    }
+  }
+}

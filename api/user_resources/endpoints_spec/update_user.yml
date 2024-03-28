@@ -1,0 +1,68 @@
+This endpoint is used to update user's email.
+<strong>Body must be an object containing these fields:</strong>
+
+
+<strong>email</strong>
+&ensp;- New user email.
+
+
+<strong>pwd1</strong>
+&ensp;- Password.
+
+
+<strong>pwd2</strong>
+&ensp;- Confirm password.
+---
+tags:
+  - Users Endpoints
+
+parameters:
+  - name: X-Paradrop-Email
+    description: OPTIONAL - Email to use with user auth token
+    x-example: admin@paradrop.io
+    in: header 
+    type: string
+    required: false
+
+  - name: X-Paradrop-Token
+    in: header
+    description: OPTIONAL - User auth token for request authentication. For authentication via token, we need both email and the user token.
+    x-example: b35bf90e-dd28-4208-8cc5-62ca12c3f5bb
+    type: string
+    required: false
+
+  - name: body
+    in: body
+    required: true
+    schema:
+      type: object
+      required:
+        - email
+        - pwd1
+        - pwd2
+
+      properties:
+        email:
+          type: string
+          example: admin@paradrop.io
+
+        pwd1:
+          type: string
+          example: password
+
+        pwd2:
+          type: string
+          example: password
+responses:
+  200:
+    description: Request was successful.
+  400:
+    description: Data in the request body might have been in a wrong format.
+  401:
+    description: You need to log in or use user token authentication to access this endpoint.
+  403:
+    description: You need admin rights to access this endpoint..
+  404:
+    description: Requested data not found..
+  500:
+    description: Internal server error.

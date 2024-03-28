@@ -1,0 +1,18 @@
+This endpoint returns CSRF token and binds it to session cookies.
+<strong>This endpoint is used to get and set CSRF token.</strong>
+---
+tags:
+  - Authentication Token Endpoints
+responses:
+  200:
+    description: Request was successful.
+  400:
+    description: Data in the request body might have been in a wrong format.
+  401:
+    description: You need to log in or use user token authentication to access this endpoint.
+  403:
+    description: You need admin rights to access this endpoint..
+  404:
+    description: Requested data not found..
+  500:
+    description: Internal server error.

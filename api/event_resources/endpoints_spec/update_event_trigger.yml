@@ -1,0 +1,153 @@
+This endpoint is used to update an existing Event Trigger.
+<strong>Body must be an object containing these fields:</strong>
+
+
+<strong>id</strong>
+&ensp;- ID of the event trigger that we want to update.
+
+
+<strong>event_name</strong>
+&ensp;- Name that we will use to update selected event trigger.
+
+
+<strong>send_alert</strong>
+&ensp;- Turn alerts for this event trigger ON/OFF.
+&ensp;- Acceptable value is true or false.
+
+
+<strong>event_impact</strong>
+&ensp;- Impact value of this event trigger.
+&ensp;- Acceptable values are:
+&emsp;-  info
+&emsp;-  low 
+&emsp;-  medium
+&emsp;-  high
+&emsp;-  critical
+
+
+<strong>event_enable</strong>
+&ensp;- Turn this event trigger ON/OFF.
+&ensp;- Acceptable value is true or false.
+
+
+<strong>event_trigger</strong>
+&ensp;- Description of this event trigger.
+&ensp;- Must be an object containing these sub-fields:
+
+&emsp;&ensp; <strong>field</strong>
+&emsp;&ensp;&ensp;- Field that we want to monitor.
+
+&emsp;&ensp; <strong>operator</strong>
+&emsp;&ensp;- Allowed operators are:
+&emsp;&ensp;&ensp;- ">" sign
+&emsp;&ensp;&ensp;- "less-than" sign 
+&emsp;&ensp;&ensp;- "==" sign
+&emsp;&ensp;&ensp;- "!=" sign
+&emsp;&ensp;&ensp;- ">=" sign
+&emsp;&ensp;&ensp;- "less-than or equal" sign
+&emsp;&ensp;&ensp;- "in"
+
+&emsp;&ensp; <strong>expected_value</strong>
+&emsp;&ensp;&ensp;- Value that we will compare to value of selected field. Must be an integer.
+&emsp;&ensp;&ensp;- Ex. diskused_pct > 90 -> will trigger the event anytime value of diskused_pct field is higher than 90.
+
+
+<strong>created_at</strong>
+&ensp;- Date when was this event trigger created.
+&ensp;- Should be in this format 2022-04-25T16:59:07
+
+
+<strong>created_by</strong>
+&ensp;- Email of the person that updated this event trigger.
+&ensp;- Ex. admin@paradrop.io
+---
+tags:
+  - Event Triggers Endpoints
+
+parameters:
+  - name: X-Paradrop-Email
+    description: OPTIONAL - Email to use with user auth token
+    x-example: admin@paradrop.io
+    in: header 
+    type: string
+    required: false
+
+  - name: X-Paradrop-Token
+    in: header
+    description: OPTIONAL - User auth token for request authentication. For authentication via token, we need both email and the user token.
+    x-example: b35bf90e-dd28-4208-8cc5-62ca12c3f5bb
+    type: string
+    required: false
+
+  - name: body
+    in: body
+    required: true
+    schema:
+      type: object
+      required:
+        - event_name
+        - send_alert
+        - event_impact
+        - event_enable
+        - event_trigger
+        - created_at
+        - created_by
+
+      properties:
+        id:
+          type: string
+          example: 38db035f-c40a-49c4-8319-fb373c86bf23
+
+        event_name:
+          type: string
+          example: Low Disk Space
+
+        send_alert:
+          type: boolean
+          example: true
+
+        event_impact:
+          type: string
+          example: info
+
+        event_enable:
+          type: boolean
+          example: true
+
+        event_trigger:
+          type: object
+          required:
+            - field
+            - operator
+            - expected_value
+          properties:
+            field:
+              type: string
+              example: diskused_pct
+            operator:
+              type: string
+              example: ==
+            expected_value:
+              type: string
+              example: "2"
+
+        created_at:
+          type: string
+          example: 2022-04-25T16:59:07
+
+        created_by:
+          type: email
+          example: admin@paradrop.io
+responses:
+  200:
+    description: Request was successful.
+  400:
+    description: Data in the request body might have been in a wrong format.
+  401:
+    description: You need to log in or use user token authentication to access this endpoint.
+  403:
+    description: You need admin rights to access this endpoint..
+  404:
+    description: Requested data not found..
+  500:
+    description: Internal server error.

@@ -1,0 +1,12 @@
+{
+  "properties": {
+    "changes_summary": {
+      "type": "keyword",
+      "normalizer": "lowercase_normalizer"
+    },
+    "changes_discovered": {
+      "type": "keyword",
+      "normalizer": "lowercase_normalizer"
+    }
+  }
+}

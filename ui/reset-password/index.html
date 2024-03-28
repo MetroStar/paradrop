@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!--
+* CoreUI - Free Bootstrap Admin Template
+* @version v4.1.0
+* @link https://coreui.io
+* Copyright (c) 2021 creativeLabs Łukasz Holeczek
+* Licensed under MIT (https://coreui.io/license)
+-->
+
+<html lang="en">
+
+  <!-- HEAD START -->
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>paradrop - Reset Password</title>
+    <link rel="icon" type="image/x-icon" href="../static/assets/favicon.png">
+    
+    <!-- CSS FILES STARTS -->
+    <link href="../static/css/coreui/style.min.css" rel="stylesheet">
+    <link href="../static/css_min/custom_style.min.css" rel="stylesheet">
+    <!-- CSS FILES ENDS -->
+
+    <!-- FONT AWESOME CDN -->
+    <script src="https://kit.fontawesome.com/d8fe3770e3.js" crossorigin="anonymous"></script>
+
+  </head>
+  <!-- HEAD END -->
+
+  <!-- BODY START -->
+  <body>
+    <div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="card-group d-block d-md-flex row shadow">
+
+              <!-- LEFT SIDE CARD START -->
+              <div class="card col-md-7 p-4 mb-0 bg-danger shadow">
+                <div class="card-body">
+
+                  <!-- RESET PASSWORD FORM START -->
+                  <form id="resetPasswordForm" method="POST">
+
+                    <img class="mt-5 pt-4 mb-3" src="../static/assets/logo.png" alt="paradrop logo">
+
+                    <!-- RESET PASSWORD FORM ROW START -->
+                    <div class="row">
+
+                      <div class="col-12">
+                        <div class="input-group mb-3"><span class="input-group-text"><span class="fas fa-envelope me-1"></span></span>
+                          <input class="form-control" type="email" id="email" name="email" placeholder="Email" required>
+                        </div>
+                      </div>
+
+                      <div class="col-12">
+                        <div class="input-group mb-3"><span class="input-group-text"><span class="fas fa-user-lock"></span></span>
+                          <input class="form-control" type="password" id="pwd1" name="pwd1" placeholder="Password" required>
+                        </div>
+                      </div>
+
+                      <div class="col-12">
+                        <div class="input-group mb-3"><span class="input-group-text"><span class="fas fa-user-lock"></span></span>
+                          <input class="form-control" type="password" id="pwd2" name="pwd2" placeholder="Confirm password" required>
+                        </div>
+                      </div>
+
+                    </div>
+                    <!-- RESET PASSWORD FORM ROW END -->
+
+                    <!-- RESET PASSWORD BUTTONS ROW START -->
+                    <div class="row">
+
+                      <div class="col-6">
+                        <button class="btn btn-block btn-light" type="submit">Reset password</button>
+                      </div>
+                      
+                    </div>
+                    <!-- RESET PASSWORD BUTTONS ROW END -->
+                  </form>
+                  <!-- RESET PASSWORD FORM END -->
+                </div>
+              </div>
+              <!-- LEFT SIDE CARD END --> 
+
+              <!-- RIGHT SIDE CARD START -->
+              <div class="card col-md-5 bg-light">
+                <img class="img-fluid mx-auto d-block" src="../static/assets/mr_roboto.png" >
+              </div>
+              <!-- RIGHT SIDE CARD END -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CoreUI and necessary plugins-->
+    <script src="../static/js/coreui/coreui.bundle.min.js"></script>
+    <script src="../static/js/simplebar/dist/simplebar.min.js"></script>
+    <!-- Script that handles functionality for this HTML page -->
+    <script type="module" src="../static/js_min/reset_password.min.js" crossorigin="anonymous"></script>
+  </body>
+  <!-- BODY END -->
+</html>

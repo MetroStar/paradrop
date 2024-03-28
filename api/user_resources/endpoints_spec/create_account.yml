@@ -1,0 +1,89 @@
+This endpoint is used to create a new account.
+<strong>Body must be an object containing these fields:</strong>
+
+
+<strong>name</strong>
+&ensp;- Name of the user.
+
+
+<strong>email</strong>
+&ensp;- User email that will be used to log in.
+
+
+<strong>pwd1</strong>
+&ensp;- User password. Must be atleast 12 characters long and it must have atleast one lowercase letter, one uppercase letter, one digit and one special character.
+
+
+<strong>pwd2</strong>
+&ensp;- Confirm user password.
+
+
+<strong>role</strong>
+&ensp;- User's role
+&ensp;- Acceptable values are:
+&emsp;-  read-only
+&emsp;-  admin 
+---
+tags:
+  - Users Endpoints
+
+parameters:
+  - name: X-Paradrop-Email
+    description: OPTIONAL - Email to use with user auth token
+    x-example: admin@paradrop.io
+    in: header 
+    type: string
+    required: false
+
+  - name: X-Paradrop-Token
+    in: header
+    description: OPTIONAL - User auth token for request authentication. For authentication via token, we need both email and the user token.
+    x-example: b35bf90e-dd28-4208-8cc5-62ca12c3f5bb
+    type: string
+    required: false
+
+  - name: body
+    in: body
+    required: true
+    schema:
+      type: object
+      required:
+        - name
+        - email
+        - pwd1
+        - pwd2
+        - role
+
+      properties:
+        name:
+          type: string
+          example: User
+
+        email:
+          type: string
+          example: user@paradrop.io
+
+        pwd1:
+          type: string
+          example: Password123456789!
+
+        pwd2:
+          type: string
+          example: Password123456789!
+
+        role:
+          type: string
+          example: read-only
+responses:
+  200:
+    description: Request was successful.
+  400:
+    description: Data in the request body might have been in a wrong format.
+  401:
+    description: You need to log in or use user token authentication to access this endpoint.
+  403:
+    description: You need admin rights to access this endpoint..
+  404:
+    description: Requested data not found..
+  500:
+    description: Internal server error.

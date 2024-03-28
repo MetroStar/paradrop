@@ -1,0 +1,119 @@
+This endpoint is used to get the data needed for modals in the Search view.
+<strong>Required parameters:</strong>
+
+
+<strong>index</strong>
+&ensp;- Database index from where we want to get the data.
+&ensp;- Acceptable values are:
+&emsp;-  hosts - for Paradrop Hosts index
+&emsp;-  events - for Paradrop Events index
+&emsp;-  audit - for Paradrop Audit index
+&emsp;-  changes - for Paradrop Changes index
+
+
+<strong>id</strong>
+&ensp;- ID of the object that we want to get the data from.
+&ensp;- This can be ID of Host, Event, Audit Event or Change.
+
+
+<strong>required_fields</strong>
+&ensp;- Fields that we want to retrieve.
+&ensp;- In case we don't need all fields, we can specify only the ones that we need.
+&ensp;- In case we want to get all fields, we set the value to allFields.
+&ensp;- Must be hyphen separated -> memoryfree_gb-diskfree_gb-hostname
+
+
+<strong>selected_field</strong>
+&ensp;- Fields selected by user.
+&ensp;- User might need to display only some of the fields that are available.
+&ensp;- In case we want to get all fields, we set the value to allFields.
+&ensp;- Must be hyphen separated -> diskfree_gb-hostname
+
+<strong>search_word</strong>
+&ensp;- If specified, we will include only results including this word.
+&ensp;- This might also be multiple words or a sentence.
+&ensp;- Must be atleast 3 characters long.
+&ensp;- In case we don't want to have a search word, we set the value to no_search_word.
+
+
+<strong>data_part</strong>
+&ensp;- Part of the data that we want to retrieve from the database.
+&ensp;- Must be hyphen separated -> Ex. 0-20
+&ensp;- First number is a position in the database from where we want to get the data.
+&ensp;- Second number is a search size and specifies how many results we want to retrieve.
+
+<strong>Example:</strong>
+&emsp;-  <strong>5-5</strong> will retrieve results from position 5 to position 10.
+---
+tags:
+  - Search View Endpoints
+parameters:
+  - name: X-Paradrop-Email
+    description: OPTIONAL - Email to use with user auth token
+    x-example: admin@paradrop.io
+    in: header 
+    type: string
+    required: false
+
+  - name: X-Paradrop-Token
+    in: header
+    description: OPTIONAL - User auth token for request authentication. For authentication via token, we need both email and the user token.
+    x-example: b35bf90e-dd28-4208-8cc5-62ca12c3f5bb
+    type: string
+    required: false
+
+  - in: path
+    name: index
+    type: string
+    required: true
+    description: Database index from where we want to get the data.
+    default: hosts
+
+  - in: path
+    name: id
+    type: string
+    required: true
+    description: ID of the object that we want to get the data from.
+    default: d07cad08fe26184300eb8b90a705bb5a753f58986131f577143be53d39a69e40
+
+
+  - in: path
+    name: required_fields
+    type: string
+    required: true
+    description: In case we don't need all fields, we can specify only the ones that we need. To retrieve all fields, set the value to allFields. Must be separated by hyphen(-).
+    default: memoryfree_gb-diskfree_gb-hostname
+
+  - in: path
+    name: selected_field
+    type: string
+    required: true
+    description: We can choose to display only specific fields that we currently need. To display all fields, set the value to allFields. Must be separated by hyphen(-).
+    default: diskfree_gb-hostname
+
+  - in: path
+    name: search_word
+    type: string
+    required: true
+    description: If we are looking for a specific word or a phrase, we set it as a value of the search_word parameter and we will retrieve only results containing that word/phrase.
+    default: no_search_word
+
+  - in: path
+    name: data_part
+    type: string
+    required: true
+    description: Part of the data (From - To) that we want to retrieve. Must be separated by hyphen(-).
+    default: 0-20
+responses:
+  200:
+    description: Request was successful.
+  400:
+    description: Data in the request body might have been in a wrong format.
+  401:
+    description: You need to log in or use user token authentication to access this endpoint.
+  403:
+    description: You need admin rights to access this endpoint..
+  404:
+    description: Requested data not found..
+  500:
+    description: Internal server error.

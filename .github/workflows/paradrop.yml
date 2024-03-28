@@ -1,0 +1,59 @@
+name: paradrop
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+  
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install Python Dependencies
+        run: |
+          make pip
+
+      - name: Run Linters
+        run: |
+          make lint
+
+      - name: Provision Paradrop Stack with Seed Data
+        run: |
+          make elk
+
+      # Tests not working in GH Action seed data isn't working
+      # - name: Test with Python unittest
+      #   run: |
+      #     make pytest
+
+      - name: Build API and UI Containers
+        run: |
+          make cbuilds
+
+      - name: Run Vulnerability Scanner on Paradrop_api image
+        uses: aquasecurity/trivy-action@0.5.1
+        with:
+          image-ref: paradrop_api
+          exit-code: 0
+          severity: HIGH,CRITICAL,UNKNOWN,LOW,MEDIUM
+          
+      - name: Run Vulnerability Scanner on Paradrop_ui image
+        uses: aquasecurity/trivy-action@0.5.1
+        with:
+          image-ref: paradrop_ui
+          exit-code: 0
+          severity: HIGH,CRITICAL,UNKNOWN,LOW,MEDIUM
+

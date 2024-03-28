@@ -1,0 +1,29 @@
+{
+"properties": {
+  "event_name": {
+    "type": "keyword",
+    "normalizer": "lowercase_normalizer"
+  },
+  "event_impact": {
+    "type": "keyword",
+    "normalizer": "lowercase_normalizer"
+  },
+  "event_enable": {
+    "type": "keyword",
+    "normalizer": "lowercase_normalizer"
+  },
+  "send_alert": {
+    "type": "keyword",
+    "normalizer": "lowercase_normalizer"
+  },    
+  "event_trigger": {
+    "type": "object",
+    "properties": {
+      "field": {
+        "type": "keyword",
+        "normalizer": "lowercase_normalizer"
+        }
+      }
+    }
+  }
+}

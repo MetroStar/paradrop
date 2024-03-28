@@ -1,0 +1,19 @@
+This endpoint is used to check if API works.
+<strong>This endpoint is used to check if API works.</strong>
+---
+tags:
+  - Health Check Endpoint
+  
+responses:
+  200:
+    description: Request was successful.
+  400:
+    description: Data in the request body might have been in a wrong format.
+  401:
+    description: You need to log in or use user token authentication to access this endpoint.
+  403:
+    description: You need admin rights to access this endpoint..
+  404:
+    description: Requested data not found..
+  500:
+    description: Internal server error.

@@ -1,0 +1,59 @@
+This endpoint is used to add new host data.
+<strong>Header must contain this field:</strong>
+
+
+<strong>X-Paradrop-Token</strong>
+&ensp;- Valid agent auth token.
+
+<strong>Body must be an object containing those fields:</strong>
+
+
+<strong>REQUIRED FIELDS:</strong>
+
+<strong>id</strong>
+&ensp;- ID of the host.
+
+<strong>ip_address</strong>
+&ensp;- Ip Address of the host.
+---
+tags:
+  - Hosts Endpoints
+
+parameters:
+  - name: X-Paradrop-Token
+    in: header
+    description: REQUIRED - Agent auth token for request authentication.
+    x-example: b35bf90e-dd28-4208-8cc5-62ca12c3f5bb
+    type: string
+    required: true
+
+  - name: body
+    in: body
+    required: true
+    schema:
+      type: object
+      required:
+        - id
+        - ip_address
+
+      properties:
+        id:
+          type: string
+          example: cwhtnveqasdsce23sd1c2
+
+        ip_address:
+          type: string
+          example: 1.1.1.1
+responses:
+  200:
+    description: Request was successful.
+  400:
+    description: Data in the request body might have been in a wrong format.
+  401:
+    description: You need to log in or use user token authentication to access this endpoint.
+  403:
+    description: You need admin rights to access this endpoint..
+  404:
+    description: Requested data not found..
+  500:
+    description: Internal server error.

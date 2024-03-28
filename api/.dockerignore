@@ -1,0 +1,15 @@
+.git*
+.*cache
+.tmp
+*.md
+LICENSE
+Dockerfile
+.docker*
+.env
+*.pyc
+__pycache__
+*.swp
+.DS_Store
+*.log
+*.sh
+.pyre*

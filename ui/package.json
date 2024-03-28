@@ -1,0 +1,35 @@
+{
+  "name": "paradrop",
+  "version": "1.0.0",
+  "description": "Scratch Pad for paradrop API / UI",
+  "scripts": {
+    "test": "npm install && node ./minifier.js"
+  },
+  "standard": {
+    "ignore": [
+      "sortable.js"
+    ],
+    "globals": [
+      "fetch",
+      "DataTable",
+      "FormData",
+      "SlimSelect",
+      "select"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/perlogix/paradrop.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/perlogix/paradrop/issues"
+  },
+  "homepage": "https://github.com/perlogix/paradrop#readme",
+  "dependencies": {
+    "esbuild": "^0.14.25",
+    "fs": "^0.0.1-security",
+    "standard": "^16.0.4"
+  }
+}

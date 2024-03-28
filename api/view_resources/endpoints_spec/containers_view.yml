@@ -1,0 +1,106 @@
+This endpoint returns data needed for the Containers view.
+<strong>Required parameters:</strong>
+
+
+<strong>query</strong>
+&ensp;- In case we are looking for a specific word or a phrase, we can specify it in this parameter and it will be added to database query.
+&ensp;- If we don't want to look for a specific word, we can set the value to *.
+
+
+<strong>required_fields</strong>
+&ensp;- Fields that we want to retrieve.
+&ensp;- In case we don't need all fields, we can specify only the ones that we need.
+&ensp;- In case we want to get all fields, we set the value to allFields.
+&ensp;- Must be hyphen separated -> memoryfree_gb-diskfree_gb-hostname
+
+
+<strong>data_part</strong>
+&ensp;- Part of the data that we want to retrieve from the database.
+&ensp;- Must be hyphen separated -> Ex. 0-20
+&ensp;- First number is a position in the database from where we want to get the data.
+&ensp;- Second number is a search size and specifies how many results we want to retrieve.
+
+<strong>Example:</strong>
+&emsp;-  <strong>5-5</strong> will retrieve results from position 5 to position 10.
+
+
+<strong>sort</strong>
+&ensp;- Specifications of sorting query. Must be separated by hyphen(-).
+&ensp;- First string is a field to sort by.
+&ensp;- Second string is order of sorting.
+&emsp;- <strong>false</strong> -> Descending order
+&emsp;- <strong>true</strong> -> Ascending order
+
+<strong>Example:</strong>
+&emsp;-  <strong>hostname-false</strong> will sort by field hostname in descending order.
+
+
+<strong>filter_query</strong>
+&ensp;- Field that will be used to filter out results that do not match our search criteria.
+&ensp;- This is used purely for data card filtering.
+---
+tags:
+  - Search View Endpoints
+
+parameters:
+  - name: X-Paradrop-Email
+    description: OPTIONAL - Email to use with user auth token
+    x-example: admin@paradrop.io
+    in: header 
+    type: string
+    required: false
+
+  - name: X-Paradrop-Token
+    in: header
+    description: OPTIONAL - User auth token for request authentication. For authentication via token, we need both email and the user token.
+    x-example: b35bf90e-dd28-4208-8cc5-62ca12c3f5bb
+    type: string
+    required: false
+
+  - in: path
+    name: query
+    type: string
+    required: true
+    description: In case we are looking for a specific word or a phrase, we can specify it in this parameter and it will be added to database query.
+    default: search phrase
+
+  - in: path
+    name: required_fields
+    type: string
+    required: true
+    description: In case we don't need all fields, we can specify only the ones that we need. To retrieve all fields, set the value to allFields. Must be separated by hyphen(-).
+    default: allFields
+
+  - in: path
+    name: data_part
+    type: string
+    required: true
+    description: Part of the data (From - To) that we want to retrieve. Must be separated by hyphen(-).
+    default: 0-20
+
+  - in: path
+    name: sort
+    type: string
+    required: true
+    description: Specifications of sorting query. Must be separated by hyphen(-).
+    default: hostname-false
+
+  - in: path
+    name: query_filter
+    type: string
+    required: true
+    description: Specifications of filtering query.
+    default: docker_images
+responses:
+  200:
+    description: Request was successful.
+  400:
+    description: Data in the request body might have been in a wrong format.
+  401:
+    description: You need to log in or use user token authentication to access this endpoint.
+  403:
+    description: You need admin rights to access this endpoint..
+  404:
+    description: Requested data not found..
+  500:
+    description: Internal server error.

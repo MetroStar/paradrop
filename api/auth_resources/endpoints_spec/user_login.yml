@@ -1,0 +1,51 @@
+This endpoint is used to log in users.
+<strong>Body must be an object containing these fields:</strong>
+
+
+<strong>email</strong>
+&ensp;- Email of the user.
+
+
+<strong>pwd</strong>
+&ensp;- Password of the user.
+---
+tags:
+  - Login/Logout Endpoints
+
+parameters:
+  - name: X-CSRFToken
+    in: header
+    description: CSRFT Token is required because of security reasons. You can generate it in "/v1/get-csrf-token" endpoint.
+    x-example: Ijk1OTQ5YTk1NTBmNzExZTZmNzBkOWEwYzFiMWZlOTNlN2UxOGNiM2Mi.Ys_wKw.6v-BR0UAcQng56FiCPwxsC_c0_Y
+    type: string
+
+  - name: body
+    in: body
+    required: true
+    schema:
+      type: object
+      required:
+        - email
+        - pwd
+
+      properties:
+        email:
+          type: string
+          example: admin@paradrop.io
+
+        pwd:
+          type: string
+          example: password
+responses:
+  200:
+    description: Request was successful.
+  400:
+    description: Data in the request body might have been in a wrong format.
+  401:
+    description: You need to log in or use user token authentication to access this endpoint.
+  403:
+    description: You need admin rights to access this endpoint..
+  404:
+    description: Requested data not found..
+  500:
+    description: Internal server error.

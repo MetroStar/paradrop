@@ -1,0 +1,21 @@
+# Default Opensearch Dashboards configuration.
+server.name: opensearch_dashboards
+server.host: "0"
+server.basePath: /opensearch_dashboards
+server.rewriteBasePath: true
+server.maxPayloadBytes: 9715150766000
+
+opensearch.hosts: ['https://opensearch:9200']
+
+opensearch.ssl.verificationMode: none # if not using HTTPS
+opensearch_security.cookie.secure: false # set to true when using HTTPS
+opensearch_security.multitenancy.enabled: true
+opensearch_security.multitenancy.tenants.preferred: [“Private”, “Global”]
+opensearch_security.readonly_mode.roles: [opensearch_dashboards_read_only']
+opensearch_security.ui.basicauth.login.title: 'Please log in using your user name and password'
+
+opensearch.username: kibanaserver
+opensearch.password: dtYe2cKY2YtyBEJ49a
+opensearch.requestHeadersAllowlist: [authorization, securitytenant, security_tenant]
+
+map.includeOpenSearchMapsService: false
