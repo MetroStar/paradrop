@@ -19,14 +19,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/perlogix/paradrop.git"
+    "url": "git+https://github.com/MetroStar/paradrop.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/perlogix/paradrop/issues"
+    "url": "https://github.com/MetroStar/paradrop/issues"
   },
-  "homepage": "https://github.com/perlogix/paradrop#readme",
+  "homepage": "https://github.com/MetroStar/paradrop#readme",
   "dependencies": {
     "esbuild": "^0.14.25",
     "fs": "^0.0.1-security",

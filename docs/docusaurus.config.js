@@ -1,5 +1,5 @@
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const lightCodeTheme = require('prism-react-renderer').themes.github;
+const darkCodeTheme = require('prism-react-renderer').themes.dracula;
 
 const config = {
   title: 'paradrop - Docs',
@@ -19,7 +19,7 @@ const config = {
         docs: {
           routeBasePath: "/",
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/perlogix/paradrop/blob/main/README.md',
+          editUrl: 'https://github.com/MetroStar/paradrop/blob/main/README.md',
         },
         blog: false,
         theme: {
@@ -45,7 +45,7 @@ const config = {
             label: 'Quick Start',
           },
           {
-            href: 'https://github.com/perlogix/paradrop',
+            href: 'https://github.com/Metrostar/paradrop',
             label: 'GitHub',
             position: 'right',
           },

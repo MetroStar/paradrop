@@ -17,7 +17,7 @@ sudo ./provision_elk.sh
 
 ## Access ElasticSearch and Kibana
 
-Kibana - open your browser to <http://localhost:5601/>
+Kibana - open your browser to http://localhost:5601/
 
 Username: `admin`
 

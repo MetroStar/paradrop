@@ -1,0 +1,331 @@
+{
+  "properties": {
+    "os": {
+      "type": "keyword",
+      "normalizer": "lowercase_normalizer",
+      "fields": {
+        "raw": {
+          "type": "keyword"
+        }
+      }
+    },
+    "hostname": {
+      "type": "keyword",
+      "normalizer": "lowercase_normalizer"
+    },
+    "ip_address": {
+      "type": "ip",
+      "fields": {
+        "raw": {
+          "type": "keyword"
+        }
+      }
+    },
+    "platform": {
+      "type": "keyword",
+      "normalizer": "lowercase_normalizer"
+    },
+    "asset_type": {
+      "type": "keyword",
+      "normalizer": "lowercase_normalizer"
+    },
+    "cloud": {
+      "type": "keyword",
+      "normalizer": "lowercase_normalizer"
+    },
+    "tags": {
+      "type": "keyword",
+      "normalizer": "lowercase_normalizer"
+    },
+    "last_run": {
+      "type": "keyword"
+    },
+    "docker_stopped": {
+      "type": "keyword",
+      "fields": {
+        "raw": {
+          "type": "long"
+        }
+      }
+    },
+    "docker_paused": {
+      "type": "keyword",
+      "fields": {
+        "raw": {
+          "type": "long"
+        }
+      }
+    },
+    "docker_running": {
+      "type": "keyword",
+      "fields": {
+        "raw": {
+          "type": "long"
+        }
+      }
+    },
+    "docker_images_count": {
+      "type": "long"
+    },
+    "docker_images": {
+      "type": "nested",
+      "include_in_parent": true,
+      "properties": {
+        "name": {
+          "type": "keyword",
+          "normalizer": "lowercase_normalizer"
+        },
+        "size": {
+          "type": "keyword",
+          "normalizer": "lowercase_normalizer"
+        },
+        "created": {
+          "type": "keyword",
+          "normalizer": "lowercase_normalizer"
+        }
+      }
+    },
+    "docker_containers": {
+      "type": "nested",
+      "include_in_parent": true,
+      "properties": {
+        "name": {
+          "type": "keyword",
+          "normalizer": "lowercase_normalizer",
+          "fields": {
+            "raw": {
+              "type": "keyword"
+            }
+          }
+        },
+        "image": {
+          "type": "keyword",
+          "normalizer": "lowercase_normalizer",
+          "fields": {
+            "raw": {
+              "type": "keyword"
+            }
+          }
+        },
+        "state": {
+          "type": "keyword",
+          "normalizer": "lowercase_normalizer",
+          "fields": {
+            "raw": {
+              "type": "keyword"
+            }
+          }
+        },
+        "status": {
+          "type": "keyword",
+          "normalizer": "lowercase_normalizer",
+          "fields": {
+            "raw": {
+              "type": "keyword"
+            }
+          }
+        }
+      }
+    },
+    "openscap": {
+      "type": "object",
+      "properties": {
+        "checks": {
+          "type": "keyword",
+          "fields": {
+            "raw": {
+              "type": "long"
+            }
+          }
+        },
+        "pass_total": {
+          "type": "keyword",
+          "fields": {
+            "raw": {
+              "type": "long"
+            }
+          }
+        },
+        "fixed_total": {
+          "type": "keyword",
+          "fields": {
+            "raw": {
+              "type": "long"
+            }
+          }
+        },
+        "fail_total": {
+          "type": "keyword",
+          "fields": {
+            "raw": {
+              "type": "long"
+            }
+          }
+        }
+      }
+    },
+    "trivy": {
+      "type": "object",
+      "properties": {
+        "vulnerabilities_total": {
+          "type": "keyword",
+          "fields": {
+            "raw": {
+              "type": "long"
+            }
+          }
+        },
+        "vulnerabilities_low": {
+          "type": "long"
+        },
+        "vulnerabilities_medium": {
+          "type": "long"
+        },
+        "vulnerabilities_high": {
+          "type": "long"
+        },
+        "vulnerabilities_critical": {
+          "type": "long"
+        },
+        "vulnerabilities_unknown": {
+          "type": "long"
+        },
+        "trivy_results": {
+          "type": "nested",
+          "properties": {
+            "Target": {
+              "type": "keyword",
+              "normalizer": "lowercase_normalizer"
+            },
+            "Class": {
+              "type": "keyword",
+              "normalizer": "lowercase_normalizer"
+            },
+            "Type": {
+              "type": "keyword",
+              "normalizer": "lowercase_normalizer"
+            },
+            "Vulnerabilities": {
+              "type": "nested",
+              "properties": {
+                "VulnerabilityID": {
+                  "type": "keyword",
+                  "normalizer": "lowercase_normalizer"
+                },
+                "PkgName": {
+                  "type": "keyword",
+                  "normalizer": "lowercase_normalizer"
+                },
+                "InstalledVersion": {
+                  "type": "keyword",
+                  "normalizer": "lowercase_normalizer"
+                },
+                "FixedVersion": {
+                  "type": "keyword",
+                  "normalizer": "lowercase_normalizer"
+                },
+                "Layer": {
+                  "type": "object"
+                },
+                "SeveritySource": {
+                  "type": "keyword",
+                  "normalizer": "lowercase_normalizer"
+                },
+                "PrimaryURL": {
+                  "type": "keyword",
+                  "normalizer": "lowercase_normalizer"
+                },
+                "DataSource": {
+                  "type": "object",
+                  "properties": {
+                    "ID": {
+                      "type": "keyword",
+                      "normalizer": "lowercase_normalizer"
+                    },
+                    "Name": {
+                      "type": "keyword",
+                      "normalizer": "lowercase_normalizer"
+                    },
+                    "URL": {
+                      "type": "keyword",
+                      "normalizer": "lowercase_normalizer"
+                    }
+                  }
+                },
+                "Title": {
+                  "type": "keyword",
+                  "normalizer": "lowercase_normalizer"
+                },
+                "Description": {
+                  "type": "keyword",
+                  "normalizer": "lowercase_normalizer"
+                },
+                "Severity": {
+                  "type": "keyword",
+                  "normalizer": "lowercase_normalizer"
+                },
+                "CVSS": {
+                  "type": "object",
+                  "properties": {
+                    "nvd": {
+                      "type": "object",
+                      "properties": {
+                        "V2Vector": {
+                          "type": "keyword",
+                          "normalizer": "lowercase_normalizer"
+                        },
+                        "V3Vector": {
+                          "type": "keyword",
+                          "normalizer": "lowercase_normalizer"
+                        },
+                        "V2Score": {
+                          "type": "float"
+                        },
+                        "V3Score": {
+                          "type": "float"
+                        }
+                      }
+                    },
+                    "redhat": {
+                      "type": "object",
+                      "properties": {
+                        "V3Vector": {
+                          "type": "keyword",
+                          "normalizer": "lowercase_normalizer"
+                        },
+                        "V3Score": {
+                          "type": "float"
+                        },
+                        "V2Vector": {
+                          "type": "keyword",
+                          "normalizer": "lowercase_normalizer"
+                        },
+                        "V2Score": {
+                          "type": "float"
+                        }
+                      }
+                    }
+                  }
+                },
+                "References": {
+                  "type": "keyword",
+                  "normalizer": "lowercase_normalizer"
+                },
+                "PublishedDate": {
+                  "type": "date"
+                },
+                "LastModifiedDate": {
+                  "type": "date"
+                },
+                "CweIDs": {
+                  "type": "keyword",
+                  "normalizer": "lowercase_normalizer"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

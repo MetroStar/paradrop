@@ -15,7 +15,7 @@ sys.path.append(".")
 app.config['TESTING'] = True
 
 # Disabling CSRF protection for testing
-app.config['WTF_CSRF_ENABLED'] = False
+# app.config['WTF_CSRF_ENABLED'] = False
 
 # Running function to add api endpoints
 run(add_resources())
@@ -151,7 +151,7 @@ class FlaskTestCase(unittest.TestCase):
         if failure_count > 0:
             print("Paradrop API Tests have FAILURES: " + str(failure_count))
             # TODO: exit(1) should be below but two tests fail in GH Actions but not anywhere else
-            exit(0)
+            # exit(0)
 
         # Adding summary of how many tests we did and how many
         # failures/successes we got into test_log file

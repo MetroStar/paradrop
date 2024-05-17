@@ -1,0 +1,25 @@
+{
+  "properties": {
+    "email": {
+      "type": "keyword",
+      "normalizer": "lowercase_normalizer"
+    },
+    "name": {
+      "type": "keyword",
+      "normalizer": "lowercase_normalizer"
+    },
+    "role": {
+      "type": "keyword",
+      "normalizer": "lowercase_normalizer"
+    },
+    "last_signin": {
+      "type": "keyword"
+    },
+    "created_at": {
+      "type": "keyword"
+    },
+    "expire_at": {
+      "type": "keyword"
+    }
+  }
+}

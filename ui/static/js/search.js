@@ -429,7 +429,11 @@ async function updateTable (tableColumnsSpecifications, dataCardsSpecifications,
           // We want to add icon to the first column to show that more data are available on click
           // If this is first column, add click icon
           if (firstColumn) {
-            newColumn.innerHTML = '<span class="fa-solid fa-arrow-up-right-from-square ms-1 me-2 "></span>'
+            if (filter === 'hosts') {
+              newColumn.innerHTML = '<span class="fa-solid fa-circle text-success ms-1 me-2 "></span>'
+            } else {
+              newColumn.innerHTML = '<span class="fa-solid fa-arrow-up-right-from-square ms-1 me-2 "></span>'
+            }
 
             // And then set firstColumn to false to have that icon only in the first column.
             firstColumn = false

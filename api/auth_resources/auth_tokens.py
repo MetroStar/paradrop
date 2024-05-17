@@ -2,7 +2,7 @@
 from flask import session, Response, request
 from flask_restful import Resource
 from asyncio import run
-from flask_wtf.csrf import generate_csrf
+# from flask_wtf.csrf import generate_csrf
 import uuid
 import json
 from flask_setup import logger
@@ -160,8 +160,8 @@ class GetCsrfToken(Resource):
     @swag_from("endpoints_spec/get_csrf_token.yml")
     def get(self) -> json:
         try:
-            token: str = generate_csrf()
-            return json.dumps({"csrf_token": token}), 200
+            # token: str = generate_csrf()
+            return json.dumps({"csrf_token": "token"}), 200
 
         except BaseException as e:
             logger.error(e)

@@ -1,4 +1,4 @@
-FROM python:3.11-slim-bullseye
+FROM python:3.12-slim
 
 RUN apt-get update -y && ACCEPT_EULA=Y \
     DEBIAN_FRONTEND=noninteractive apt-get upgrade -y && \

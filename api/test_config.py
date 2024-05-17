@@ -76,8 +76,8 @@ tests = [
     # index
     {"url": "/v1/add-event-triggers", "method": "POST", "code_unauth": 200, "code_user": 403, "code_admin": 200,
      "json": {"id": "event-trigger-id1", "event_name": "low_disk_space", "send_alert": True, "event_impact": "high", "event_enable": True,
-              "event_trigger": {"field": "diskused_pct", "operator": ">", "expected_value": "90"}, "created_at": "2022-04-25T16:59:07", "created_by": "admin@paradrop.io",
-              "updated_at": "2022-04-25T16:59:07", "updated_by": "admin@paradrop.io"}, "for": ["UNAUTHORIZED"], "pause":2,
+              "event_trigger": {"field": "diskused_pct", "operator": ">", "expected_value": "90"}, "created_at": "2024-04-11T21:57:23Z", "created_by": "admin@paradrop.io",
+              "updated_at": "2024-04-11T21:57:23Z", "updated_by": "admin@paradrop.io"}, "for": ["UNAUTHORIZED"], "pause":2,
      "headers": {"X-Paradrop-Token": "5338d5e4-6f3e-45fe-8af5-e2d96213b3f0", "X-Paradrop-Email": "testadmin@test.com"},
      "test_case": "Using user token auth to add event trigger so we don't have an empty index"},
 
@@ -116,15 +116,15 @@ tests = [
              "ports": [], "state":"running", "status":"Up 14 hours"},
          {"name": "contactform-slack", "image": "perlogix:contactform-slack", "command": "/contactform-slack", "ports": [{"IP": "127.0.0.1", "PrivatePort": 8080, "PublicPort": 8080, "Type": "tcp"}],
                   "state": "running", "status": "Up 14 hours"}], "docker_running": 6, "docker_paused": 0, "docker_stopped": 0, "docker_images_count": 21, "docker_images": [{"name": "<none>:<none>", "size": "35.66MB",
-                                                                                                                                                                             "created": "2022-05-10T17:04:09-04:00"}, {"name": "perlogix.com:20220510", "size": "42.58MB", "created": "2022-05-10T17:04:09-04:00"}, {"name": "<none>:<none>",
-                                                                                                                                                                                                                                                                                                                     "size": "42.58MB", "created": "2022-05-10T17:04:09-04:00"}, {"name": "<none>:<none>", "size": "35.65MB", "created": "2022-05-10T17:04:09-04:00"}, {"name": "<none>:<none>", "size": "35.66MB",
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                        "created": "2022-05-10T17:04:09-04:00"}, {"name": "<none>:<none>", "size": "35.65MB", "created": "2022-05-10T17:04:08-04:00"},
-                                                                                                                                                                            {"name": "<none>:<none>", "size": "35.65MB", "created": "2022-05-10T17:04:08-04:00"}, {
-                      "name": "<none>:<none>", "size": "35.64MB", "created": "2022-05-09T17:26:53-04:00"},
-         {"name": "<none>:<none>", "size": "5.311MB", "created": "2022-04-08T01:16:25-04:00"}, {
-             "name": "<none>:<none>", "size": "5.108MB", "created": "2022-04-08T01:16:25-04:00"},
-         {"name": "perlogix:bot", "size": "5.311MB", "created": "2022-04-08T01:16:25-04:00"}, {
-             "name": "filebrowser/filebrowser:latest", "size": "31.15MB", "created": "2022-02-22T05:11:39-05:00"},
+                                                                                                                                                                             "created": "2024-04-11T21:57:23Z"}, {"name": "perlogix.com:20220510", "size": "42.58MB", "created": "2024-04-11T21:57:23Z"}, {"name": "<none>:<none>",
+                                                                                                                                                                                                                                                                                                                     "size": "42.58MB", "created": "2024-04-11T21:57:23Z"}, {"name": "<none>:<none>", "size": "35.65MB", "created": "2024-04-11T21:57:23Z"}, {"name": "<none>:<none>", "size": "35.66MB",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                        "created": "2024-04-11T21:57:23Z"}, {"name": "<none>:<none>", "size": "35.65MB", "created": "2024-03-10T17:04:08-04:00"},
+                                                                                                                                                                            {"name": "<none>:<none>", "size": "35.65MB", "created": "2024-03-10T17:04:08-04:00"}, {
+                      "name": "<none>:<none>", "size": "35.64MB", "created": "2024-03-09T17:26:53-04:00"},
+         {"name": "<none>:<none>", "size": "5.311MB", "created": "2024-03-08T01:16:25-04:00"}, {
+             "name": "<none>:<none>", "size": "5.108MB", "created": "2024-03-08T01:16:25-04:00"},
+         {"name": "perlogix:bot", "size": "5.311MB", "created": "2024-03-08T01:16:25-04:00"}, {
+             "name": "filebrowser/filebrowser:latest", "size": "31.15MB", "created": "2024-03-22T05:11:39-05:00"},
          {"name": "amazon/opendistro-for-elasticsearch:latest", "size": "1.319GB", "created": "2021-12-10T21:19:33-05:00"}, {
              "name": "<none>:<none>", "size": "69.9MB", "created": "2021-11-17T16:42:42-05:00"},
          {"name": "perlogix:contactform-slack", "size": "69.9MB", "created": "2021-11-17T16:42:42-05:00"}, {
@@ -137,9 +137,9 @@ tests = [
          "docker_stopped":0, "docker_images_count":0,
          "docker_images":[], "docker_labels":[], "domain":"", "ec2_ami_id":"", "ec2_availability_zone":"", "ec2_instance_id":"", "ec2_instance_type":"",
          "ec2_profile":"", "ec2_public_ip4":"", "ec2_security_groups":[], "environment":"", "expired_certs":[], "failed_logins":[], "gem":[],
-         "hostname":"TESTING-DATA", "id":"c4c3989e55a61e26bee4fe95475355a73124137e439e0cd66e763695e66ec018", "ip_route":[], "ip_address":"192.168.1.165",
+         "hostname":"desktop-win10-1", "id":"c4c3989e55a61e26bee4fe95475355a73124137e439e0cd66e763695e66ec018", "ip_route":[], "ip_address":"192.168.1.165",
          "iptables":[], "network_interfaces":[], "journalctl_logs":[], "kernel_arch":"x86_64", "kernel_version":"10.0.19043 Build 19043",
-         "last_run":"2022-05-12T20:15:13-04:00", "load1":0, "load15":0, "load5":0, "loaded_kernel_modules":[], "memoryfree_gb":13,
+         "last_run":"2024-03-12T20:15:13-04:00", "load1":0, "load15":0, "load5":0, "loaded_kernel_modules":[], "memoryfree_gb":13,
          "memorytotal_gb":15, "memoryused_gb":2, "memoryused_pct":16, "ntp_servers":[], "ntp_running":False,
          "open_ports":[{"address": "0.0.0.0", "port": 135, "name": "svchost.exe", "protocol": "tcp"}, {"address": "0.0.0.0", "port": 445, "name": "System", "protocol": "tcp"},
                        {"address": "0.0.0.0", "port": 1536, "name": "lsass.exe", "protocol": "tcp"}, {
@@ -174,12 +174,12 @@ tests = [
                              {"display_name": "Update for Windows 10 for x64-based Systems (KB4023057)", "display_version": "2.63.0.0",
                               "install_date": "2019-11-11T00:00:00-05:00", "publisher": "Microsoft Corporation"},
                              {"display_name": "Update for Windows 10 for x64-based Systems (KB4480730)", "display_version": "2.53.0.0", "install_date": "2019-11-11T00:00:00-05:00",
-                              "publisher": "Microsoft Corporation"}, {"display_name": "Microsoft Update Health Tools", "display_version": "3.67.0.0", "install_date": "2022-04-05T00:00:00-04:00",
+                              "publisher": "Microsoft Corporation"}, {"display_name": "Microsoft Update Health Tools", "display_version": "3.67.0.0", "install_date": "2024-03-05T00:00:00-04:00",
                                                                       "publisher": "Microsoft Corporation"}, {"display_name": "Microsoft Visual C++ 2019 X64 Minimum Runtime - 14.24.28127", "display_version": "14.24.28127",
                                                                                                               "install_date": "2020-10-31T00:00:00-04:00", "publisher": "Microsoft Corporation"}, {"display_name": "Microsoft Visual C++ 2019 X64 Additional Runtime - 14.24.28127",
                                                                                                                                                                                                    "display_version": "14.24.28127", "install_date": "2020-10-31T00:00:00-04:00", "publisher": "Microsoft Corporation"}, {"display_name": "TightVNC", "display_version": "2.8.59.0",
                                                                                                                                                                                                                                                                                                                           "install_date": "2021-07-03T00:00:00-04:00", "publisher": "GlavSoft LLC."}, {"display_name": "Google Chrome", "display_version": "101.0.4951.64",
-                                                                                                                                                                                                                                                                                                                                                                                                       "install_date": "2022-05-11T00:00:00-04:00", "publisher": "Google LLC"}, {"display_name": "Microsoft Edge", "display_version": "101.0.1210.39", "install_date": "2022-05-07T00:00:00-04:00",
+                                                                                                                                                                                                                                                                                                                                                                                                       "install_date": "2024-03-11T00:00:00-04:00", "publisher": "Google LLC"}, {"display_name": "Microsoft Edge", "display_version": "101.0.1210.39", "install_date": "2024-03-07T00:00:00-04:00",
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  "publisher": "Microsoft Corporation"}, {"display_name": "Microsoft Visual C++ 2015-2019 Redistributable (x64) - 14.24.28127", "display_version": "14.24.28127.4",
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          "install_date": "0001-01-01T00:00:00Z", "publisher": "Microsoft Corporation"}, {"display_name": "Microsoft Visual C++ 2019 X86 Minimum Runtime - 14.24.28127",
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          "display_version": "14.24.28127", "install_date": "2020-10-31T00:00:00-04:00", "publisher": "Microsoft Corporation"}, {"display_name": "Google Update Helper", "display_version": "1.3.36.31",
@@ -401,31 +401,31 @@ tests = [
     # Trying to add event trigger with valid data
     {"url": "/v1/add-event-triggers", "method": "POST", "code_unauth": 200, "code_user": 403, "code_admin": 200,
      "json": {"id": "event-trigger-id2", "event_name": "low_disk_space", "send_alert": True, "event_impact": "high", "event_enable": True,
-              "event_trigger": {"field": "diskused_pct", "operator": ">", "expected_value": "90"}, "created_at": "2022-04-25T16:59:07", "created_by": "admin@paradrop.io",
-              "updated_at": "2022-04-25T16:59:07", "updated_by": "admin@paradrop.io"}, "for": ["UNAUTHORIZED"], "pause":2,
+              "event_trigger": {"field": "diskused_pct", "operator": ">", "expected_value": "90"}, "created_at": "2024-04-11T21:57:23Z", "created_by": "admin@paradrop.io",
+              "updated_at": "2024-04-11T21:57:23Z", "updated_by": "admin@paradrop.io"}, "for": ["UNAUTHORIZED"], "pause":2,
      "headers": {"X-Paradrop-Token": "5338d5e4-6f3e-45fe-8af5-e2d96213b3f0", "X-Paradrop-Email": "testadmin@test.com"},
      "test_case": "Trying to add event trigger with valid data"},
 
     # Trying to add event trigger with non-valid data
     {"url": "/v1/add-event-triggers", "method": "POST", "code_unauth": 401, "code_user": 403, "code_admin": 400,
      "json": {"event_name": "low_disk_space", "send_alert": True, "event_impact": "high", "event_enable": True,
-              "e_trigger": {"field": "diskused_pct", "operator": ">", "expected_value": "90"}, "created_at": "2022-02-25",
-              "created_by": "admin@paradrop.io", "updated_at": "2022-02-25", "updated_by": "admin@paradrop.io"}, "for": ["all"], "pause":0,
+              "e_trigger": {"field": "diskused_pct", "operator": ">", "expected_value": "90"}, "created_at": "2024-03-25",
+              "created_by": "admin@paradrop.io", "updated_at": "2024-03-25", "updated_by": "admin@paradrop.io"}, "for": ["all"], "pause":0,
      "headers": "", "test_case": "Trying to add event trigger with non-valid data"},
 
     # Update Event Triggers test cases
     # Trying to update event trigger with valid data
     {"url": "/v1/update-event-triggers", "method": "POST", "code_unauth": 401, "code_user": 403, "code_admin": 200,
      "json": {"event_name": "low_disk_space", "send_alert": True, "event_impact": "high", "event_enable": True,
-              "event_trigger": {"field": "diskused_pct", "operator": ">", "expected_value": "90"}, "created_at": "2022-02-25",
-              "created_by": "admin@paradrop.io", "updated_at": "2022-02-25", "updated_by": "admin@paradrop.io", "id": "event-trigger-id2"},
+              "event_trigger": {"field": "diskused_pct", "operator": ">", "expected_value": "90"}, "created_at": "2024-03-25",
+              "created_by": "admin@paradrop.io", "updated_at": "2024-03-25", "updated_by": "admin@paradrop.io", "id": "event-trigger-id2"},
      "for": ["all"], "pause":0, "headers": "", "test_case": "Trying to update event trigger with valid data"},
 
     # Trying to update event trigger with non-valid data
     {"url": "/v1/update-event-triggers", "method": "POST", "code_unauth": 401, "code_user": 403, "code_admin": 400,
      "json": {"event_name": "low_disk_space", "send_alert": True, "event_impact": "high", "event_enable": True,
-              "e_trigger": {"field": "diskused_pct", "operator": ">", "expected_value": "90"}, "created_at": "2022-02-25",
-              "created_by": "admin@paradrop.io", "updated_at": "2022-02-25", "updated_by": "admin@paradrop.io", "id": "event-trigger-id2"},
+              "e_trigger": {"field": "diskused_pct", "operator": ">", "expected_value": "90"}, "created_at": "2024-03-25",
+              "created_by": "admin@paradrop.io", "updated_at": "2024-03-25", "updated_by": "admin@paradrop.io", "id": "event-trigger-id2"},
      "for": ["all"], "pause":0, "headers": "", "test_case": "Trying to update event trigger with non-valid data"},
 
     # Report builder tests
@@ -439,15 +439,15 @@ tests = [
     # Trying to add report with non-valid data
     {"url": "/v1/add-reports", "method": "POST", "code_unauth": 401, "code_user": 403, "code_admin": 400,
      "json": {"report_nme": "R1", "report_filename": "r1", "report_description": "test report",
-              "report_mappings": {"Asset": "asset_type", "Clouds": "cloud"}, "created_at": "2022-02-25",
-              "created_by": "admin@paradrop.io", "updated_at": "2022-02-25", "updated_by": "admin@paradrop.io"}, "for": ["all"], "pause":0,
+              "report_mappings": {"Asset": "asset_type", "Clouds": "cloud"}, "created_at": "2024-03-25",
+              "created_by": "admin@paradrop.io", "updated_at": "2024-03-25", "updated_by": "admin@paradrop.io"}, "for": ["all"], "pause":0,
      "headers": "", "test_case": "Trying to add report with non-valid data"},
 
     # Update Reports test cases
     # Trying to update report with valid data
     {"url": "/v1/update-reports", "method": "POST", "code_unauth": 401, "code_user": 403, "code_admin": 200,
      "json": {"id": "report-id1", "report_description": "Report containing chassis type and cpu count information.",
-              "report_mappings": {"Chass. Ty.": "chassis_type", "Cpu C.": "cpu_count"}, "report_name": "Some Report Name", "created_at": "2022-02-25",
+              "report_mappings": {"Chass. Ty.": "chassis_type", "Cpu C.": "cpu_count"}, "report_name": "Some Report Name", "created_at": "2024-03-25",
               "created_by": "testadmin@test.com"}, "for": ["all"], "pause":0,
      "headers": "", "test_case": "Trying to update report with valid data"},
 

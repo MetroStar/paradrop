@@ -1,0 +1,15 @@
+{
+  "properties": {
+    "event": {
+      "type": "keyword",
+      "normalizer": "lowercase_normalizer"
+    },
+    "updated_by": {
+      "type": "keyword",
+      "normalizer": "lowercase_normalizer"
+    },
+    "updated_at": {
+      "type": "keyword"
+    }
+  }
+}

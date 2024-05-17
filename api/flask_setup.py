@@ -4,7 +4,7 @@ from flask_restful import Api
 from flask_session import Session
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
-from flask_wtf.csrf import CSRFProtect
+# from flask_wtf.csrf import CSRFProtect
 from flasgger import Swagger
 from asgiref.wsgi import WsgiToAsgi
 import logging
@@ -61,7 +61,7 @@ app.config['SWAGGER'] = {
 app.config['WTF_CSRF_CHECK_DEFAULT'] = False
 
 # INITIALIZE FLASK CSRF
-csrf = CSRFProtect(app)
+# csrf = CSRFProtect(app)
 
 swagger = Swagger(app)
 
@@ -82,7 +82,10 @@ CORS(
         "http://127.0.0.1:8000",
         "http://127.0.0.1:5000",
         "https://127.0.0.1",
-        "https://localhost"])
+        "http://127.0.0.1:8443",
+        "https://localhost:8443",
+        "https://localhost",
+        "https://demo.paradrop.io"])
 
 # Converting app from WSGI to ASGI
 asgi_app = WsgiToAsgi(app)

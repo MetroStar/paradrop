@@ -54,7 +54,7 @@ This endpoint is used to update an existing Event Trigger.
 
 <strong>created_at</strong>
 &ensp;- Date when was this event trigger created.
-&ensp;- Should be in this format 2022-04-25T16:59:07
+&ensp;- Should be in this format 2024-04-11T21:57:23Z
 
 
 <strong>created_by</strong>
@@ -133,7 +133,7 @@ parameters:
 
         created_at:
           type: string
-          example: 2022-04-25T16:59:07
+          example: 2024-04-11T21:57:23Z
 
         created_by:
           type: email

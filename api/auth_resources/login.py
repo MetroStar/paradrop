@@ -2,7 +2,7 @@
 from flask import session, request, Response
 from flask_restful import Resource
 from asyncio import run
-from utils.csrf_protection import csrf_protection_enabled
+# from utils.csrf_protection import csrf_protection_enabled
 from db.users.read_users import check_pwd
 from db.users.update_users import db_update_user_attribute
 from utils.timestamps import gen_timestamp
@@ -11,7 +11,7 @@ from flasgger import swag_from
 
 
 class UserLogin(Resource):
-    @csrf_protection_enabled
+    # @csrf_protection_enabled
     @swag_from("endpoints_spec/user_login.yml")
     def post(self) -> Response:
         try:

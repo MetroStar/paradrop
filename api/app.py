@@ -44,8 +44,7 @@ def first_run() -> bool:
                 "normalizer": "lowercase_normalizer"
             },
             "updated_at": {
-                "type": "keyword",
-                "normalizer": "lowercase_normalizer"
+                "type": "keyword"
             }
         }
     }
@@ -167,8 +166,7 @@ def first_run() -> bool:
                 "normalizer": "lowercase_normalizer"
             },
             "last_run": {
-                "type": "keyword",
-                "normalizer": "lowercase_normalizer"
+                "type": "keyword"
             },
             "docker_stopped": {
                 "type": "keyword",
@@ -491,12 +489,10 @@ def first_run() -> bool:
                 "normalizer": "lowercase_normalizer"
             },
             "created_at": {
-                "type": "keyword",
-                "normalizer": "lowercase_normalizer"
+                "type": "keyword"
             },
             "expire_at": {
-                "type": "keyword",
-                "normalizer": "lowercase_normalizer"
+                "type": "keyword"
             }
         }
     }

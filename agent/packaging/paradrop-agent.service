@@ -1,0 +1,13 @@
+[Unit]
+Description=paradrop-agent Daemon
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+ExecStart=/usr/bin/paradrop-agent -d
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

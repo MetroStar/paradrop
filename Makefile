@@ -3,7 +3,7 @@ UI_NAME := paradrop_ui
 
 .PHONY: api elk superlinter develop docs
 
-default: docker
+default: local
 
 mkcert:
 	openssl req -x509 -newkey rsa:4096 -nodes -keyout ui/localhost.key -out ui/localhost.pem -days 365 -sha256 -subj '/CN=127.0.0.1' -addext 'subjectAltName=IP:127.0.0.1'
@@ -15,9 +15,9 @@ npm:
 docs:
 	cd docs && npm install
 
-docker: npm mkcert docs
+local: npm mkcert docs
 	sudo docker compose down --remove-orphans
-	sudo URL='https:\/\/127.0.0.1' docker compose up --build -d
+	sudo URL='https:\/\/localhost:8443' docker compose up --build -d
 	sleep 60
 	cd ./elk && ./seed.sh
 

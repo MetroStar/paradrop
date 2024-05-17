@@ -13,47 +13,54 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Set Up Golang
+        uses: actions/setup-go@v5
         with:
-          fetch-depth: 0
-  
-      - name: Set up Python 3.10
-        uses: actions/setup-python@v4
+          go-version: ">=1.22.3"
+
+      - name: Build paradrop-agent Binary
+        run: |
+          go install honnef.co/go/tools/cmd/staticcheck@latest
+          curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.58.1
+          curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v2.20.0
+          cd agent && make lint && make
+
+      - name: Set Up Python 3.12
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version: "3.12"
 
       - name: Install Python Dependencies
-        run: |
-          make pip
+        run: make pip
 
       - name: Run Linters
-        run: |
-          make lint
+        run: make lint
 
       - name: Provision Paradrop Stack with Seed Data
-        run: |
-          make elk
+        run: make local
 
-      # Tests not working in GH Action seed data isn't working
-      # - name: Test with Python unittest
-      #   run: |
-      #     make pytest
+      - name: Test with Python unittest
+        run: make pytest
 
-      - name: Build API and UI Containers
-        run: |
-          make cbuilds
-
-      - name: Run Vulnerability Scanner on Paradrop_api image
-        uses: aquasecurity/trivy-action@0.5.1
+      - name: Run Vulnerability Scanner On paradrop-api Image
+        uses: aquasecurity/trivy-action@master
         with:
-          image-ref: paradrop_api
+          image-ref: paradrop-api
           exit-code: 0
-          severity: HIGH,CRITICAL,UNKNOWN,LOW,MEDIUM
-          
-      - name: Run Vulnerability Scanner on Paradrop_ui image
-        uses: aquasecurity/trivy-action@0.5.1
-        with:
-          image-ref: paradrop_ui
-          exit-code: 0
-          severity: HIGH,CRITICAL,UNKNOWN,LOW,MEDIUM
+          severity: HIGH,CRITICAL,MEDIUM
 
+      - name: Run Vulnerability Scanner On paradrop-ui Image
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: paradrop-ui
+          exit-code: 0
+          severity: HIGH,CRITICAL,MEDIUM
+
+      - name: Run Vulnerability Scanner On paradrop-docs Image
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: paradrop-docs
+          exit-code: 0
+          severity: HIGH,CRITICAL,MEDIUM

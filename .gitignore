@@ -159,6 +159,7 @@ vendor
 *.deb
 .vagrant*
 *.box
+paradrop-agent
 
 # macOS Specific
 .DS_Store

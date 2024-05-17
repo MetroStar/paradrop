@@ -1,20 +1,22 @@
-#version: '3.9'
-
 services:
   opensearch:
     container_name: opensearch
     environment:
+      cluster.name: opensearch-paradrop-cluster
+      node.name: opensearch-node1
+      bootstrap.memory_lock: true
       discovery.type: single-node
       http.cors.enabled: "false"
+      http.compression: "false"
       network.host: 0.0.0.0
-      OPENSEARCH_JAVA_OPTS: "-Xms4g -Xmx12g"
       OPENSEARCH_INITIAL_ADMIN_PASSWORD: "dtYe2cKY2YtyBEJ49a"
-    image: opensearchproject/opensearch:2.11.1
+      # OPENSEARCH_JAVA_OPTS: "-Xms4g -Xmx12g"
+    image: opensearchproject/opensearch:2.13.0
     networks:
       - paradrop
     ports:
       - 127.0.0.1:9200:9200
-    restart: always
+    restart: unless-stopped
     volumes:
       - ./elk/internal_users.yml:/usr/share/opensearch/config/opensearch-security/internal_users.yml:rw
 
@@ -25,14 +27,14 @@ services:
         condition: service_started
     environment:
       SERVER_HOST: 0.0.0.0
-    image: opensearchproject/opensearch-dashboards:2.11.1
+    image: opensearchproject/opensearch-dashboards:2.13.0
     networks:
       - paradrop
     ports:
       - 127.0.0.1:5601:5601
-    restart: always
+    restart: unless-stopped
     volumes:
-    - ./elk/opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml:ro
+      - ./elk/opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml:ro
 
   api:
     build:
@@ -45,7 +47,7 @@ services:
       - paradrop
     ports:
       - 127.0.0.1:5000:5000
-    restart: always
+    restart: unless-stopped
 
   ui:
     build:
@@ -61,8 +63,8 @@ services:
     networks:
       - paradrop
     ports:
-      - 8443:443
-    restart: always
+      - 8443:8443
+    restart: unless-stopped
 
   docs:
     build:
@@ -75,7 +77,7 @@ services:
       - paradrop
     ports:
       - 127.0.0.1:3008:3008
-    restart: always
+    restart: unless-stopped
 
 networks:
   paradrop:

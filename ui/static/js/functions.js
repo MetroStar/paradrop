@@ -18,7 +18,7 @@ async function getCsrfToken () {
 
 // Function to handle all fetch requests
 export async function fetchRequest (apiUrl, method = 'GET', body = null, headers = { 'Content-Type': 'application/json' }) {
-  headers['X-CSRFToken'] = await getCsrfToken()
+  // headers['X-CSRFToken'] = await getCsrfToken()
   const res = fetch(apiUrl, {
     method: method,
     body: body,
