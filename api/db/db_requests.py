@@ -6,7 +6,9 @@ from flask import Response
 from urllib3.exceptions import InsecureRequestWarning
 from utils.id_generator import gen_id
 
+
 requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
+
 
 def post_request(request_url: str, request_data: dict) -> Response:
     """

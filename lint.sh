@@ -2,12 +2,12 @@
 
 # Python code auto-formatter
 if [ "$(command -v autopep8 2>/dev/null)" != "" ]; then
-    find . -name "*.py" -type f -exec autopep8 --in-place --aggressive {} \;
+    find ./api -name "*.py" -type f -exec autopep8 --in-place --aggressive {} \;
 fi
 
 # Python linter
 if [ "$(command -v flake8 2>/dev/null)" != "" ]; then
-    find . -name "*.py" -type f -exec flake8 --ignore E501,W504,E402 {} \; || true
+    find ./api -name "*.py" -type f -exec flake8 --ignore E501,W504,E402 {} \; || true
 fi
 
 # Python type checker

@@ -3,9 +3,9 @@
 
 Vagrant.configure(2) do |config|
     config.vm.box = "ubuntu/jammy64"
-    config.vm.hostname = "paradrop-ubuntu22-1"
+    config.vm.hostname = "paradrop-ubuntu22-01"
     config.vm.provider "virtualbox" do |v|
-        v.name = "paradrop-ubuntu22-1"
+        v.name = "paradrop-ubuntu22-01"
         v.memory = 8192
         v.cpus = 4
         v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
@@ -43,7 +43,7 @@ ACCEPT_EULA=Y DEBIAN_FRONTEND=noninteractive apt-get update -y
 ACCEPT_EULA=Y DEBIAN_FRONTEND=noninteractive apt-get remove -y whoopsie apport apport-gtk ubuntu-report unattended-upgrades kerneloops plymouth thunderbird transmission-common cheese aisleriot gnome-mahjongg gnome-mines gnome-sudoku remmina mlocate
 ACCEPT_EULA=Y DEBIAN_FRONTEND=noninteractive apt-get autoremove -y
 ACCEPT_EULA=Y DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
-ACCEPT_EULA=Y DEBIAN_FRONTEND=noninteractive apt-get install -y curl jq vim net-tools dnsutils screen nodejs python3-pip python3-dev make unzip htop clamav libopenscap8 dmidecode
+ACCEPT_EULA=Y DEBIAN_FRONTEND=noninteractive apt-get install -y curl jq vim net-tools dnsutils screen nodejs python3-pip python3-dev make unzip htop clamav libopenscap8 dmidecode shellcheck wget apt-transport-https gnupg lsb-release
 
 # Setup Docker
 curl -fsSL https://get.docker.com -o ./get-docker.sh
@@ -54,21 +54,43 @@ systemctl enable docker
 systemctl restart docker
 
 # Install Trivy Scanner
-apt-get install wget apt-transport-https gnupg lsb-release
 wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
 echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
 apt-get update
 apt-get install trivy
 
 # Install OpenScap Content Guides
-wget -c https://github.com/ComplianceAsCode/content/releases/download/v0.1.72/scap-security-guide-0.1.72.zip
+curl -OLs https://github.com/ComplianceAsCode/content/releases/download/v0.1.72/scap-security-guide-0.1.72.zip
 unzip scap-security-guide-0.1.72.zip
 mkdir -p /usr/share/scap-security-guide
 cp -rf scap-security-guide-0.1.72/* /usr/share/scap-security-guide/
 rm -rf scap-security-guide-0.1.72*
 
 # Install Python Deps
-pip3 install -r /paradrop/api/requirements.txt
+cd /paradrop
+make pip
+pip3 install flake8
+
+# Setup Golang
+GOVER="1.22.3"
+curl -OLs "https://golang.org/dl/go$GOVER.linux-amd64.tar.gz"
+tar -zxf ./"go$GOVER.linux-amd64.tar.gz"
+mv -f ./go /usr/local/
+rm -f ./"go$GOVER.linux-amd64.tar.gz"
+ln -s /usr/local/go/bin/go /usr/bin/go
+
+# Setup Golang Env & Build Agent
+mkdir -p /home/vagrant/go/{src/github.com/Metrostar,bin,pkg}
+ln -s /paradrop/agent /home/vagrant/go/src/github.com/Metrostar/paradrop
+chown -Rf vagrant:vagrant /home/vagrant
+export GOPATH=/home/vagrant/go
+cd /home/vagrant/go/src/github.com/Metrostar/paradrop
+make
+chmod -f 0755 ./paradrop-agent
+
+# Run paradrop Stack
+cd /paradrop
+make local
 
 # Setup paradrop-agent
 mkdir -p /etc/paradrop
@@ -82,9 +104,9 @@ tags: ["app=paradrop-agent-vagrant","health=https://localhost:8443/v1/health"]
 oscap_xccdf_xml: "/usr/share/scap-security-guide/ssg-ubuntu2204-ds.xml"
 EOF
 
-cp -f /paradrop/paradrop-agent /usr/bin/
+cp -f /paradrop/agent/paradrop-agent /usr/bin/
 
-# timeout 15 paradrop-agent -d
+timeout 200 paradrop-agent -d
 
 # Restart
 systemctl reboot

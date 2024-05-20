@@ -4,7 +4,6 @@ from flask_restful import Api
 from flask_session import Session
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
-# from flask_wtf.csrf import CSRFProtect
 from flasgger import Swagger
 from asgiref.wsgi import WsgiToAsgi
 import logging
@@ -53,15 +52,6 @@ app.config['SWAGGER'] = {
     'uiversion': 3,
     "version": "v1"
 }
-
-# Disabling CSRF protection by default. To enable CSRF protection
-# on a specific endpoint, just add csrf_protection_enabled decorator
-# from utils/csrf_protection file to the endpoint that you want to have
-# CSRF protected.
-app.config['WTF_CSRF_CHECK_DEFAULT'] = False
-
-# INITIALIZE FLASK CSRF
-# csrf = CSRFProtect(app)
 
 swagger = Swagger(app)
 

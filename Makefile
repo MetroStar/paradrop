@@ -19,19 +19,19 @@ local: npm mkcert docs
 	sudo docker compose down --remove-orphans
 	sudo URL='https:\/\/localhost:8443' docker compose up --build -d
 	sleep 60
-	cd ./elk && ./seed.sh
+	cd ./elk && ./seed.sh add_mappings add_configs add_tokens add_users
 
 demo: npm mkcert docs
 	sudo docker compose down --remove-orphans
 	sudo URL='https:\/\/demo.paradrop.io' docker compose up --build -d
 	sleep 60
-	cd ./elk && ./seed.sh
+	cd ./elk && ./seed.sh demo
 
 develop: npm mkcert docs
 	sudo docker compose down --remove-orphans
 	sudo URL='https:\/\/develop.paradrop.io' docker compose up --build -d
 	sleep 60
-	cd ./elk && ./seed.sh
+	cd ./elk && ./seed.sh demo
 
 ui: npm
 	./ui/http_server.py
@@ -47,7 +47,7 @@ up:
 	sudo URL='https:\/\/127.0.0.1' docker compose up --build -d
 
 seed:
-	cd ./elk && ./seed.sh
+	cd ./elk && ./seed.sh demo
 
 elk:
 	sudo docker rm -f opensearch
@@ -65,7 +65,7 @@ elk:
 		-v "${PWD}"/elk/opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml \
 		opensearchproject/opensearch-dashboards:2.11.1
 
-	cd ./elk && ./seed.sh
+	cd ./elk && ./seed.sh demo
 
 cbuilds: npm mkcert
 	cd ./api && sudo docker build -t $(API_NAME) .

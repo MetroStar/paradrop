@@ -3,12 +3,19 @@ from typing import List
 from flask_setup import logger
 from config.config import ES_EVENTS_URL
 from db.db_requests import post_request, bulk_post_request
-from utils.alerts import send_email_alert, send_slack_alert, send_ms_teams_alert, send_mattermost_alert
+from utils.alerts import (
+    send_email_alert,
+    send_slack_alert,
+    send_ms_teams_alert,
+    send_mattermost_alert,
+)
 from utils.id_generator import gen_id
 from utils.timestamps import gen_timestamp
 
 
-async def db_generate_events(host_data: dict, event_triggers: list, current_configurations: dict) -> dict:
+async def db_generate_events(
+    host_data: dict, event_triggers: list, current_configurations: dict
+) -> dict:
     """
     Function that goes through host data and compare values to all event triggers
     in the database. If event trigger is triggered, it will send alert and generate
@@ -25,43 +32,44 @@ async def db_generate_events(host_data: dict, event_triggers: list, current_conf
 
                 host_data_value: str = str(host_data[event_trigger_field])
                 event_trigger_expected_value: str = str(
-                    event_trigger["event_trigger"]["expected_value"])
+                    event_trigger["event_trigger"]["expected_value"]
+                )
 
                 # DIGIT ONLY OPERATORS
                 if event_trigger_operator == "<":
-                    if not (host_data_value.isdigit()
-                            and event_trigger_expected_value.isdigit()):
+                    if not (
+                        host_data_value.isdigit() and event_trigger_expected_value.isdigit()
+                    ):
                         continue
 
-                    if not (int(host_data_value) < int(
-                            event_trigger_expected_value)):
+                    if not (int(host_data_value) < int(event_trigger_expected_value)):
                         continue
 
                 elif event_trigger_operator == ">":
-                    if not (host_data_value.isdigit()
-                            and event_trigger_expected_value.isdigit()):
+                    if not (
+                        host_data_value.isdigit() and event_trigger_expected_value.isdigit()
+                    ):
                         continue
 
-                    if not (int(host_data_value) > int(
-                            event_trigger_expected_value)):
+                    if not (int(host_data_value) > int(event_trigger_expected_value)):
                         continue
 
                 elif event_trigger_operator == ">=":
-                    if not (host_data_value.isdigit()
-                            and event_trigger_expected_value.isdigit()):
+                    if not (
+                        host_data_value.isdigit() and event_trigger_expected_value.isdigit()
+                    ):
                         continue
 
-                    if not (int(host_data_value) >= int(
-                            event_trigger_expected_value)):
+                    if not (int(host_data_value) >= int(event_trigger_expected_value)):
                         continue
 
                 elif event_trigger_operator == "<=":
-                    if not (host_data_value.isdigit()
-                            and event_trigger_expected_value.isdigit()):
+                    if not (
+                        host_data_value.isdigit() and event_trigger_expected_value.isdigit()
+                    ):
                         continue
 
-                    if not (int(host_data_value) <= int(
-                            event_trigger_expected_value)):
+                    if not (int(host_data_value) <= int(event_trigger_expected_value)):
                         continue
 
                 # ANY VALUE OPERATORS
@@ -80,11 +88,13 @@ async def db_generate_events(host_data: dict, event_triggers: list, current_conf
                     return {
                         "valid": False,
                         "code": 400,
-                        "message": f"{event_trigger_operator} is not a valid operator.."}
+                        "message": f"{event_trigger_operator} is not a valid operator..",
+                    }
 
                 event_id: str = gen_id()
                 events_data.append(
-                    {"create": {"_index": "paradrop_events", "_id": event_id}})
+                    {"create": {"_index": "paradrop_events", "_id": event_id}}
+                )
 
                 event_details: dict = {
                     "event_id": event_id,
@@ -94,12 +104,17 @@ async def db_generate_events(host_data: dict, event_triggers: list, current_conf
                     "event_name": event_trigger["event_name"],
                     "event_message": f"Event triggers if {event_trigger_field} {event_trigger_operator} {event_trigger_expected_value} -> Value of {event_trigger_field} field in host data is {host_data_value}.",
                     "event_impact": event_trigger["event_impact"],
-                    "alert_sent": False
+                    "alert_sent": False,
                 }
 
                 # Adding required field if they are present in host data
                 required_fields: list = [
-                    "hostname", "platform", "cloud", "tags", "asset_type"]
+                    "hostname",
+                    "platform",
+                    "cloud",
+                    "tags",
+                    "asset_type",
+                ]
                 for field in required_fields:
                     if field in host_data:
                         event_details[field] = host_data[field]
@@ -119,14 +134,12 @@ async def db_generate_events(host_data: dict, event_triggers: list, current_conf
                         event_details["alert_sent"] = True
 
                     if current_configurations["ms_teams_enable"]:
-                        send_ms_teams_alert(
-                            current_configurations, event_details)
+                        send_ms_teams_alert(current_configurations, event_details)
                         alerts_sent_to.append("ms_teams")
                         event_details["alert_sent"] = True
 
                     if current_configurations["mattermost_enable"]:
-                        send_mattermost_alert(
-                            current_configurations, event_details)
+                        send_mattermost_alert(current_configurations, event_details)
                         alerts_sent_to.append("mattermost")
                         event_details["alert_sent"] = True
 
@@ -138,10 +151,7 @@ async def db_generate_events(host_data: dict, event_triggers: list, current_conf
 
     except BaseException as e:
         logger.error(e)
-        return {
-            "valid": False,
-            "code": 500,
-            "message": f"Something went wrong: {e}.."}
+        return {"valid": False, "code": 500, "message": f"Something went wrong: {e}.."}
 
 
 async def db_get_events(query: dict = {"query": {"match_all": {}}}) -> dict:
@@ -170,18 +180,17 @@ async def db_get_events(query: dict = {"query": {"match_all": {}}}) -> dict:
                 "code": 404,
                 "message": "No events found in the database..",
                 "data": events,
-                "number_of_results": number_of_results}
+                "number_of_results": number_of_results,
+            }
         else:
             return {
                 "valid": True,
                 "code": 200,
                 "message": "Events found, returning data..",
                 "data": events,
-                "number_of_results": number_of_results}
+                "number_of_results": number_of_results,
+            }
 
     except BaseException as e:
         logger.error(e)
-        return {
-            "valid": False,
-            "code": 500,
-            "message": f"Something went wrong: {e}.."}
+        return {"valid": False, "code": 500, "message": f"Something went wrong: {e}.."}

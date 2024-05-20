@@ -13,12 +13,6 @@ tags:
   - Login/Logout Endpoints
 
 parameters:
-  - name: X-CSRFToken
-    in: header
-    description: CSRFT Token is required because of security reasons. You can generate it in "/v1/get-csrf-token" endpoint.
-    x-example: Ijk1OTQ5YTk1NTBmNzExZTZmNzBkOWEwYzFiMWZlOTNlN2UxOGNiM2Mi.Ys_wKw.6v-BR0UAcQng56FiCPwxsC_c0_Y
-    type: string
-
   - name: body
     in: body
     required: true

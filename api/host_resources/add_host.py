@@ -13,6 +13,7 @@ from db.changes import db_add_changes
 from config.config import ES_HOSTS_URL
 from asyncio import run
 
+
 class AddHost(Resource):
     @swag_from("endpoints_spec/add_host.yml")
     def post(self) -> Response:
@@ -44,7 +45,7 @@ class AddHost(Resource):
                 original_host_data: dict = get_request(
                     ES_HOSTS_URL +
                     "/_doc/" + new_host_data["id"]).json()
-                
+
                 if original_host_data["found"]:
                     original_host_data = original_host_data["_source"]
 

@@ -7,6 +7,7 @@ from utils.id_generator import gen_id
 from utils.timestamps import gen_timestamp
 import json
 
+
 async def db_add_changes(original_host_data: dict, new_host_data: dict) -> dict:
     """
     Function that takes original host data and new host data, creates a new dictionary
@@ -18,11 +19,32 @@ async def db_add_changes(original_host_data: dict, new_host_data: dict) -> dict:
 
         # List of all keys that we don't want to include in the comparison.
         keys_to_skip: list = [
-        "dmesg_errors", "users_loggedin",
-        "last_run", "failed_logins", "id", "processes",
-        "network_interfaces"
+            "diskfree_gb",
+            "diskused_gb",
+            "diskused_pct",
+            "docker_containers",
+            "docker_images_count",
+            "docker_images",
+            "docker_labels",
+            "id",
+            "network_interfaces",
+            "journalctl_logs",
+            "last_run",
+            "load1",
+            "load5",
+            "load15",
+            "memoryfree_gb",
+            "memoryused_gb",
+            "memoryused_pct",
+            "processes",
+            "sysctl",
+            "systemd_timers",
+            "trivy",
+            "uptime_days",
+            "users_loggedin",
+            "dmesg_errors",
         ]
-        
+
         changes: dict = {}
 
         for key in original_host_data.keys():
@@ -35,10 +57,15 @@ async def db_add_changes(original_host_data: dict, new_host_data: dict) -> dict:
 
                         # Add details to changes
                         changes_summary += f" - {key}"
-                        changes[key] = json.dumps({"+++" : new_host_data[key], "---" : original_host_data[key]}, indent=1)
+                        changes[key] = json.dumps(
+                            {"+++": new_host_data[key], "---": original_host_data[key]},
+                            indent=1,
+                        )
                 else:
                     changes_summary += f" - {key}"
-                    changes[key] = json.dumps({"---" : original_host_data[key]}, indent=1)
+                    changes[key] = json.dumps(
+                        {"---": original_host_data[key]}, indent=1
+                    )
 
         for key in new_host_data.keys():
             if key not in keys_to_skip:
@@ -48,8 +75,8 @@ async def db_add_changes(original_host_data: dict, new_host_data: dict) -> dict:
 
                     # Add details to changes if there is a new key
                     changes_summary += f" - {key}"
-                    changes[key] = json.dumps({"+++" : new_host_data[key]}, indent=1)
-        
+                    changes[key] = json.dumps({"+++": new_host_data[key]}, indent=1)
+
         # If there were any changes made, add them to the Changes index
         if changes != {}:
             changes["id"] = gen_id()
@@ -61,10 +88,8 @@ async def db_add_changes(original_host_data: dict, new_host_data: dict) -> dict:
 
     except BaseException as e:
         logger.error(e)
-        return {
-            "valid": False,
-            "code": 500,
-            "message": f"Something went wrong: {e}.."}
+        return {"valid": False, "code": 500, "message": f"Something went wrong: {e}.."}
+
 
 async def db_get_changes(query: dict = {"query": {"match_all": {}}}) -> dict:
     """
@@ -93,18 +118,17 @@ async def db_get_changes(query: dict = {"query": {"match_all": {}}}) -> dict:
                 "code": 404,
                 "message": "No changes found in the database..",
                 "data": changes,
-                "number_of_results": number_of_results}
+                "number_of_results": number_of_results,
+            }
         else:
             return {
                 "valid": True,
                 "code": 200,
                 "message": "Changes found, returning data..",
                 "data": changes,
-                "number_of_results": number_of_results}
+                "number_of_results": number_of_results,
+            }
 
     except BaseException as e:
         logger.error(e)
-        return {
-            "valid": False,
-            "code": 500,
-            "message": f"Something went wrong: {e}.."}
+        return {"valid": False, "code": 500, "message": f"Something went wrong: {e}.."}

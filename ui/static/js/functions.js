@@ -1,24 +1,5 @@
-import { CSRFTOKENURL } from './config.min.js'
-
-async function getCsrfToken () {
-  let csrfToken = await fetch(CSRFTOKENURL, {
-    method: 'GET',
-    body: null,
-    headers: { 'Content-Type': 'application/json' },
-    credentials: 'include'
-  })
-
-  if (csrfToken.status === 200) {
-    csrfToken = JSON.parse(await csrfToken.json())
-    return csrfToken.csrf_token
-  } else {
-    return null
-  }
-}
-
 // Function to handle all fetch requests
 export async function fetchRequest (apiUrl, method = 'GET', body = null, headers = { 'Content-Type': 'application/json' }) {
-  // headers['X-CSRFToken'] = await getCsrfToken()
   const res = fetch(apiUrl, {
     method: method,
     body: body,

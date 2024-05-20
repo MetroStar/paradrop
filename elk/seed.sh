@@ -3,48 +3,24 @@
 
 USER="admin"
 PASSWD='dtYe2cKY2YtyBEJ49a'
+URL='https://127.0.0.1:9200'
 
-# Seed Mock Data to paradrop_hosts Index
-curl -k -u "$USER:$PASSWD" -XPUT 'https://127.0.0.1:9200/paradrop_hosts'
+add_hosts() {
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_hosts/_doc/d07cad08fe26184300eb8b90a705bb5a753f58986131f577143be53d39a69e40' -d @./hosts/notebook-ubuntu20-1.json
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_hosts/_doc/15a7117d10552dfa2aec759d76628397f1c73dd9069c9623136f43fbbf325f16' -d @./hosts/desktop-clear-1.json
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_hosts/_doc/b7d523dab0f328039d889160823f9cf58574dbb9ac454daa033ff37ec4e7fdc1' -d @./hosts/pi4-ubuntu20-1.json
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_hosts/_doc/c4c3989e55a61e26bee4fe95475355a73124137e439e0cd66e763695e66ec018' -d @./hosts/desktop-win10-1.json
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_hosts/_doc/77f26a9d6a23d47fe328597c29fede19231ee1a28cc0668b6f634d1a77e80f99' -d @./hosts/vm-centos8-1.json
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_hosts/_doc/7df309c1722acd385c8c0eb6c2b3b02b853556998b71317ab304ad914740a74e' -d @./hosts/vm-centos9-1.json
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_hosts/_doc/fff03470dacec51e21fcb7dcdae3e86c9ff764ff8aab0baf1ac6199aaa6570d9' -d @./hosts/vm-rocky9-1.json
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_hosts/_doc/9d1b098f1a14c3a8b5192f552e5c4e9a185055a0144f9b44a7671c54cf7dec41' -d @./hosts/vm-winsrv2022-1.json
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_hosts/_doc/efdc88abb696c777d6242161194aadb7c1c94fcfd7013e9058a05501f993f010' -d @./hosts/demo.paradrop.io.json
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_hosts/_doc/70048f0024b3dcf1367df019b787be477af37cb03b11ea0f5add348af6f7e575' -d @./hosts/desktop-win11-1.json
+}
 
-# To add settings, we have to close the index, update settings and then open index again.
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_hosts/_close'
-
-curl -k -u "$USER:$PASSWD" -XPUT -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_hosts/_settings' -d @es_settings.json
-
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_hosts/_open'
-
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_hosts/_mapping' -d @./mappings/paradrop_hosts_mapping.json
-
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_hosts/_doc/d07cad08fe26184300eb8b90a705bb5a753f58986131f577143be53d39a69e40' -d @./hosts/notebook-ubuntu20-1.json
-
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_hosts/_doc/15a7117d10552dfa2aec759d76628397f1c73dd9069c9623136f43fbbf325f16' -d @./hosts/desktop-clear-1.json
-
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_hosts/_doc/b7d523dab0f328039d889160823f9cf58574dbb9ac454daa033ff37ec4e7fdc1' -d @./hosts/pi4-ubuntu20-1.json
-
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_hosts/_doc/c4c3989e55a61e26bee4fe95475355a73124137e439e0cd66e763695e66ec018' -d @./hosts/desktop-win10-1.json
-
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_hosts/_doc/77f26a9d6a23d47fe328597c29fede19231ee1a28cc0668b6f634d1a77e80f99' -d @./hosts/vm-centos8-1.json
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_hosts/_doc/7df309c1722acd385c8c0eb6c2b3b02b853556998b71317ab304ad914740a74e' -d @./hosts/vm-centos9-1.json
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_hosts/_doc/fff03470dacec51e21fcb7dcdae3e86c9ff764ff8aab0baf1ac6199aaa6570d9' -d @./hosts/vm-rocky9-1.json
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_hosts/_doc/9d1b098f1a14c3a8b5192f552e5c4e9a185055a0144f9b44a7671c54cf7dec41' -d @./hosts/vm-winsrv2022-1.json
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_hosts/_doc/efdc88abb696c777d6242161194aadb7c1c94fcfd7013e9058a05501f993f010' -d @./hosts/demo.paradrop.io.json
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_hosts/_doc/70048f0024b3dcf1367df019b787be477af37cb03b11ea0f5add348af6f7e575' -d @./hosts/desktop-win11-1.json
-
-
-# Seed Mock Data to paradrop_users Index
-curl -k -u "$USER:$PASSWD" -XPUT 'https://127.0.0.1:9200/paradrop_users'
-
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_users/_close'
-
-curl -k -u "$USER:$PASSWD" -XPUT -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_users/_settings' -d @es_settings.json
-
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_users/_open'
-
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_users/_mapping' -d @./mappings/paradrop_users_mapping.json
-
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_users/_doc/2db4ff61-3075-4721-b2c8-98f59690ae31' -d \
-'{
+add_users() {
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_users/_doc/2db4ff61-3075-4721-b2c8-98f59690ae31' -d \
+    '{
   "id": "2db4ff61-3075-4721-b2c8-98f59690ae31",
   "name": "admin",
   "email": "admin@paradrop.io",
@@ -58,8 +34,8 @@ curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://1
   "reset_password": false
 }'
 
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_users/_doc/38db035f-c40a-49c4-8319-fb373c86bf23' -d \
-'{
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_users/_doc/38db035f-c40a-49c4-8319-fb373c86bf23' -d \
+    '{
   "id" : "38db035f-c40a-49c4-8319-fb373c86bf23",
   "email" : "user@paradrop.io",
   "name" : "user",
@@ -72,10 +48,11 @@ curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://1
   "locked" : false,
   "reset_password" : false
 }'
+}
 
-# Seed App Configurations Data to paradrop_configs Index
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_configs/_doc/1' -d \
-'{
+add_configs() {
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_configs/_doc/1' -d \
+    '{
   "id": "1",
   "slack_url": "",
   "ms_teams_url": "",
@@ -90,20 +67,11 @@ curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://1
   "clean_hosts_days_interval": 0,
   "clean_events_count": 100000
 }'
+}
 
-# Seed Reports Data to paradrop_reports Index
-curl -k -u "$USER:$PASSWD" -XPUT 'https://127.0.0.1:9200/paradrop_reports'
-
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_reports/_close'
-
-curl -k -u "$USER:$PASSWD" -XPUT -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_reports/_settings' -d @es_settings.json
-
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_reports/_open'
-
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_reports/_mapping' -d @./mappings/paradrop_reports_mapping.json
-
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_reports/_doc/14vBoULXeqiZcRRTq' -d \
-'{
+add_reports() {
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_reports/_doc/14vBoULXeqiZcRRTq' -d \
+    '{
   "id": "14vBoULXeqiZcRRTq",
   "report_name": "fedramp_inventory",
   "report_description": "SSP-A13 FedRAMP Integrated Inventory CSV",
@@ -123,8 +91,8 @@ curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://1
   "updated_by": "admin@paradrop.io"
 }'
 
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_reports/_doc/YIvlbVBoqasTGlFQ' -d \
-'{
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_reports/_doc/YIvlbVBoqasTGlFQ' -d \
+    '{
   "report_name": "software_inventory",
   "report_description": "Show all software installed on assets",
   "report_mappings": {
@@ -143,8 +111,8 @@ curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://1
   "updated_by": "admin@paradrop.io"
 }'
 
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_reports/_doc/ySvpy7c6SsJBbkq7' -d \
-'{
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_reports/_doc/ySvpy7c6SsJBbkq7' -d \
+    '{
   "report_name": "failed_or_critical_errors",
   "report_description": "Show failed software and critical errors",
   "report_mappings": {
@@ -162,8 +130,8 @@ curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://1
   "updated_by": "admin@paradrop.io"
 }'
 
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_reports/_doc/dIzIHRorTjMkUywM' -d \
-'{
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_reports/_doc/dIzIHRorTjMkUywM' -d \
+    '{
   "report_name": "virtualization",
   "report_description": "Show which systems are virtual machines and the environment theyre in",
   "report_mappings": {
@@ -180,8 +148,8 @@ curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://1
   "updated_by": "admin@paradrop.io"
 }'
 
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_reports/_doc/pM7DQWpI8uXQcUz6' -d \
-'{
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_reports/_doc/pM7DQWpI8uXQcUz6' -d \
+    '{
   "id": "pM7DQWpI8uXQcUz6",
   "report_name": "network_processes",
   "report_description": "Show open network ports and local processes mapping to ports",
@@ -198,8 +166,8 @@ curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://1
   "updated_by": "admin@paradrop.io"
 }'
 
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_reports/_doc/72ryFQZoH6PJl9x1' -d \
-'{
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_reports/_doc/72ryFQZoH6PJl9x1' -d \
+    '{
   "report_name": "daily_vulnerability",
   "report_description": "Get the latest Trivy vulnerabilities data",
   "report_mappings": {
@@ -216,8 +184,8 @@ curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://1
   "updated_by": "admin@paradrop.io"
 }'
 
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_reports/_doc/oWBMYKKZxNs7YGiN' -d \
-'{
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_reports/_doc/oWBMYKKZxNs7YGiN' -d \
+    '{
   "report_name": "scheduled_jobs",
   "report_description": "Show scheduled jobs like cronjobs, systemd-timers, Windows scheduled tasks",
   "report_mappings": {
@@ -233,8 +201,8 @@ curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://1
   "updated_by": "admin@paradrop.io"
 }'
 
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_reports/_doc/QFw7PTalmGIhB3Am' -d \
-'{
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_reports/_doc/QFw7PTalmGIhB3Am' -d \
+    '{
   "report_name": "cloud_inventory",
   "report_description": "Show all assets that are hosted in a cloud provider",
   "report_mappings": {
@@ -250,8 +218,8 @@ curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://1
   "updated_by": "admin@paradrop.io"
 }'
 
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_reports/_doc/5hPJgHaZoQhEnm2k' -d \
-'{
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_reports/_doc/5hPJgHaZoQhEnm2k' -d \
+    '{
   "report_name": "openscap_compliance",
   "report_description": "Show OpenScap compliance scan results",
   "report_mappings": {
@@ -267,8 +235,8 @@ curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://1
   "updated_by": "admin@paradrop.io"
 }'
 
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_reports/_doc/jITJT43igqVq3wKo' -d \
-'{
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_reports/_doc/jITJT43igqVq3wKo' -d \
+    '{
   "report_name": "loggedin_users",
   "report_description": "Show users logged into the assets across the network",
   "report_mappings": {
@@ -283,8 +251,8 @@ curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://1
   "updated_by": "admin@paradrop.io"
 }'
 
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_reports/_doc/6runHG5hOFdn1us0' -d \
-'{
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_reports/_doc/6runHG5hOFdn1us0' -d \
+    '{
   "id": "6runHG5hOFdn1us0",
   "report_name": "system_performance",
   "report_description": "Show system performance across all assets ",
@@ -303,20 +271,11 @@ curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://1
   "updated_at": "2024-04-12T15:34:00",
   "updated_by": "admin@paradrop.io"
 }'
+}
 
-# Seed Mock Data to paradrop_event_triggers Index
-curl -k -u "$USER:$PASSWD" -XPUT 'https://127.0.0.1:9200/paradrop_event_triggers'
-
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_event_triggers/_close'
-
-curl -k -u "$USER:$PASSWD" -XPUT -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_event_triggers/_settings' -d @es_settings.json
-
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_event_triggers/_open'
-
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_event_triggers/_mapping' -d @./mappings/paradrop_event_triggers_mapping.json
-
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_event_triggers/_doc/38db035f-c40a-49c4-8319-fb373c86bf23' -d \
-'{
+add_event_triggers() {
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_event_triggers/_doc/38db035f-c40a-49c4-8319-fb373c86bf23' -d \
+    '{
   "id": "38db035f-c40a-49c4-8319-fb373c86bf23",
   "event_name": "low_disk_space",
   "send_alert": true,
@@ -332,8 +291,8 @@ curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://1
   "updated_by": "admin@paradrop.io"
 }'
 
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_event_triggers/_doc/38db035f-c40a-49c4-8319-fb373c86bf24' -d \
-'{
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_event_triggers/_doc/38db035f-c40a-49c4-8319-fb373c86bf24' -d \
+    '{
   "id": "38db035f-c40a-49c4-8319-fb373c86bf24",
   "event_name": "low_memory",
   "send_alert": true,
@@ -349,8 +308,8 @@ curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://1
   "updated_by": "admin@paradrop.io"
 }'
 
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_event_triggers/_doc/pjH2trDESeHlTVAE' -d \
-'{
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_event_triggers/_doc/pjH2trDESeHlTVAE' -d \
+    '{
   "event_name": "critical_vulnerabilities",
   "send_alert": true,
   "event_impact": "high",
@@ -367,8 +326,8 @@ curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://1
   "updated_by": "admin@paradrop.io"
 }'
 
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_event_triggers/_doc/io0cr5NH9rufVynW' -d \
-'{
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_event_triggers/_doc/io0cr5NH9rufVynW' -d \
+    '{
   "event_name": "high_vulnerabilities",
   "send_alert": true,
   "event_impact": "medium",
@@ -385,8 +344,8 @@ curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://1
   "updated_by": "admin@paradrop.io"
 }'
 
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_event_triggers/_doc/joQ8SSlm2M2MhjpM' -d \
-'{
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_event_triggers/_doc/joQ8SSlm2M2MhjpM' -d \
+    '{
   "event_name": "compliance_failures",
   "send_alert": true,
   "event_impact": "medium",
@@ -403,8 +362,8 @@ curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://1
   "updated_by": "admin@paradrop.io"
 }'
 
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_event_triggers/_doc/8ikdznQ86P1roTvW' -d \
-'{
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_event_triggers/_doc/8ikdznQ86P1roTvW' -d \
+    '{
   "event_name": "ntp_not_running",
   "send_alert": true,
   "event_impact": "medium",
@@ -421,8 +380,8 @@ curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://1
   "updated_by": "admin@paradrop.io"
 }'
 
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_event_triggers/_doc/OvO28UftXxVucASG' -d \
-'{
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_event_triggers/_doc/OvO28UftXxVucASG' -d \
+    '{
   "event_name": "cpu_vulnerabilities",
   "send_alert": true,
   "event_impact": "high",
@@ -439,8 +398,8 @@ curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://1
   "updated_by": "admin@paradrop.io"
 }'
 
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_event_triggers/_doc/ybz05mqrEJ6Wzcmc' -d \
-'{
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_event_triggers/_doc/ybz05mqrEJ6Wzcmc' -d \
+    '{
   "event_name": "stopped_containers",
   "send_alert": true,
   "event_impact": "medium",
@@ -457,8 +416,8 @@ curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://1
   "updated_by": "admin@paradrop.io"
 }'
 
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_event_triggers/_doc/bORu8uvnd0x5sO44' -d \
-'{
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_event_triggers/_doc/bORu8uvnd0x5sO44' -d \
+    '{
   "event_name": "expired_certs",
   "send_alert": true,
   "event_impact": "high",
@@ -475,8 +434,8 @@ curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://1
   "updated_by": "admin@paradrop.io"
 }'
 
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_event_triggers/_doc/GJLfIrcfOxcfPpTo' -d \
-'{
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_event_triggers/_doc/GJLfIrcfOxcfPpTo' -d \
+    '{
   "event_name": "failed_logins",
   "send_alert": true,
   "event_impact": "high",
@@ -493,8 +452,8 @@ curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://1
   "updated_by": "admin@paradrop.io"
 }'
 
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_event_triggers/_doc/c04wi2cKUu0GVGDl' -d \
-'{
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_event_triggers/_doc/c04wi2cKUu0GVGDl' -d \
+    '{
   "event_name": "high_cpu",
   "send_alert": true,
   "event_impact": "medium",
@@ -511,8 +470,8 @@ curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://1
   "updated_by": "admin@paradrop.io"
 }'
 
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_event_triggers/_doc/BpbBmtUKD6HvL51r' -d \
-'{
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_event_triggers/_doc/BpbBmtUKD6HvL51r' -d \
+    '{
   "event_name": "high_load",
   "send_alert": true,
   "event_impact": "medium",
@@ -529,8 +488,8 @@ curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://1
   "updated_by": "admin@paradrop.io"
 }'
 
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_event_triggers/_doc/p8fYdOM3bbNlPoAJ' -d \
-'{
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_event_triggers/_doc/p8fYdOM3bbNlPoAJ' -d \
+    '{
   "event_name": "systemctl_failures",
   "send_alert": true,
   "event_impact": "medium",
@@ -547,8 +506,8 @@ curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://1
   "updated_by": "admin@paradrop.io"
 }'
 
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_event_triggers/_doc/60xhW8vd43t7iZb9' -d \
-'{
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_event_triggers/_doc/60xhW8vd43t7iZb9' -d \
+    '{
   "event_name": "low_memory_info",
   "send_alert": true,
   "event_impact": "info",
@@ -564,21 +523,11 @@ curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://1
   "updated_at": "2024-04-12T15:05:41",
   "updated_by": "admin@paradrop.io"
 }'
+}
 
-# Seed Event Data to paradrop_events Index
-curl -k -u "$USER:$PASSWD" -XPUT 'https://127.0.0.1:9200/paradrop_events'
-
-# To add settings, we have to close the index, update settings and then open index again.
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_events/_close'
-
-curl -k -u "$USER:$PASSWD" -XPUT -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_events/_settings' -d @es_settings.json
-
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_events/_open'
-
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_events/_mapping' -d @./mappings/paradrop_events_mapping.json
-
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_events/_doc/38db035f-c40a-49c4-8319-fb373c86bf23' -d \
-'{
+add_events() {
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_events/_doc/38db035f-c40a-49c4-8319-fb373c86bf23' -d \
+    '{
   "id": "38db035f-c40a-49c4-8319-fb373c86bf23",
   "hostname": "notebook-ubuntu20-1",
   "ip_address": "192.168.1.3",
@@ -593,10 +542,11 @@ curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://1
   "alert_sent": true,
   "alerts_sent_to": ["slack"]
 }'
+}
 
-# Seed data to paradrop_tokens Index
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_tokens/_doc/1' -d \
-'{
+add_tokens() {
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_tokens/_doc/1' -d \
+    '{
     "agent_token": "b97a81c5-3c2b-4a96-8881-38af26dc8407",
     "user_tokens": {
         "admin@paradrop.io": {
@@ -605,46 +555,94 @@ curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://1
         }
     }
 }'
+}
 
-# Add paradrop_audit Index
-curl -k -u "$USER:$PASSWD" -XPUT 'https://127.0.0.1:9200/paradrop_audit'
+add_changes() {
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_changes/_doc/41zt852v-g74x-65j2-1235-xy856s78ew65' -d @changes_data.json
+}
 
-# To add settings, we have to close the index, update settings and then open index again.
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_audit/_close'
+add_mappings() {
+  # Hosts
+  curl -k -u "$USER:$PASSWD" -XPUT ''''$URL'''/paradrop_hosts'
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_hosts/_close'
+  curl -k -u "$USER:$PASSWD" -XPUT -H 'Content-Type: application/json' ''''$URL'''/paradrop_hosts/_settings' -d @es_settings.json
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_hosts/_open'
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_hosts/_mapping' -d @./mappings/paradrop_hosts_mapping.json
 
-curl -k -u "$USER:$PASSWD" -XPUT -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_audit/_settings' -d @es_settings.json
+  # Users
+  curl -k -u "$USER:$PASSWD" -XPUT ''''$URL'''/paradrop_users'
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_users/_close'
+  curl -k -u "$USER:$PASSWD" -XPUT -H 'Content-Type: application/json' ''''$URL'''/paradrop_users/_settings' -d @es_settings.json
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_users/_open'
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_users/_mapping' -d @./mappings/paradrop_users_mapping.json
 
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_audit/_open'
+  # Reports
+  curl -k -u "$USER:$PASSWD" -XPUT ''''$URL'''/paradrop_reports'
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_reports/_close'
+  curl -k -u "$USER:$PASSWD" -XPUT -H 'Content-Type: application/json' ''''$URL'''/paradrop_reports/_settings' -d @es_settings.json
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_reports/_open'
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_reports/_mapping' -d @./mappings/paradrop_reports_mapping.json
 
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_audit/_mapping' -d @./mappings/paradrop_audit_mapping.json
+  # Event Triggers
+  curl -k -u "$USER:$PASSWD" -XPUT ''''$URL'''/paradrop_event_triggers'
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_event_triggers/_close'
+  curl -k -u "$USER:$PASSWD" -XPUT -H 'Content-Type: application/json' ''''$URL'''/paradrop_event_triggers/_settings' -d @es_settings.json
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_event_triggers/_open'
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_event_triggers/_mapping' -d @./mappings/paradrop_event_triggers_mapping.json
 
-# Add paradrop_changes Index
-curl -k -u "$USER:$PASSWD" -XPUT 'https://127.0.0.1:9200/paradrop_changes'
+  # Events
+  curl -k -u "$USER:$PASSWD" -XPUT ''''$URL'''/paradrop_events'
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_events/_close'
+  curl -k -u "$USER:$PASSWD" -XPUT -H 'Content-Type: application/json' ''''$URL'''/paradrop_events/_settings' -d @es_settings.json
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_events/_open'
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_events/_mapping' -d @./mappings/paradrop_events_mapping.json
 
-# To add settings, we have to close the index, update settings and then open index again.
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_changes/_close'
+  # Audit
+  curl -k -u "$USER:$PASSWD" -XPUT ''''$URL'''/paradrop_audit'
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_audit/_close'
+  curl -k -u "$USER:$PASSWD" -XPUT -H 'Content-Type: application/json' ''''$URL'''/paradrop_audit/_settings' -d @es_settings.json
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_audit/_open'
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_audit/_mapping' -d @./mappings/paradrop_audit_mapping.json
 
-curl -k -u "$USER:$PASSWD" -XPUT -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_changes/_settings' -d @es_settings.json
+  # Tokens
+  curl -k -u "$USER:$PASSWD" -XPUT ''''$URL'''/paradrop_tokens'
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_tokens/_close'
+  curl -k -u "$USER:$PASSWD" -XPUT -H 'Content-Type: application/json' ''''$URL'''/paradrop_tokens/_settings' -d @es_settings.json
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_tokens/_open'
+  # TODO: Create paradrop_tokens_mapping.json
+  # curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_tokens/_mapping' -d @./mappings/paradrop_tokens_mapping.json
 
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_changes/_open'
+  # Configs
+  curl -k -u "$USER:$PASSWD" -XPUT ''''$URL'''/paradrop_configs'
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_configs/_close'
+  curl -k -u "$USER:$PASSWD" -XPUT -H 'Content-Type: application/json' ''''$URL'''/paradrop_configs/_settings' -d @es_settings.json
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_configs/_open'
+  # TODO: Create paradrop_configs_mapping.json
+  # curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_configs/_mapping' -d @./mappings/paradrop_configs_mapping.json
 
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_changes/_mapping' -d @./mappings/paradrop_changes_mapping.json
+  # Changes
+  curl -k -u "$USER:$PASSWD" -XPUT ''''$URL'''/paradrop_changes'
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_changes/_close'
+  curl -k -u "$USER:$PASSWD" -XPUT -H 'Content-Type: application/json' ''''$URL'''/paradrop_changes/_settings' -d @es_settings.json
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_changes/_open'
+  curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' ''''$URL'''/paradrop_changes/_mapping' -d @./mappings/paradrop_changes_mapping.json
 
-# Seed Mock Data to paradrop_changes Index
-curl -k -u "$USER:$PASSWD" -XPOST -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_changes/_doc/41zt852v-g74x-65j2-1235-xy856s78ew65' -d @changes_data.json
+  # Fix default security indices not needed for production
+  curl -k -u "$USER:$PASSWD" -XPUT -H 'Content-Type: application/json' ''''$URL'''/security*/_settings' -d'{"index":{"number_of_replicas":0}}'
+}
 
-# Increase Default Search Results Returned For paradrop_hosts Index
-curl -k -u "$USER:$PASSWD" -XPUT -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_hosts/_settings' -d '{"index.max_result_window": 100000}'
-
-# Increase Default Search Results Returned for paradrop_users Index
-curl -k -u "$USER:$PASSWD" -XPUT -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_users/_settings' -d '{"index.max_result_window": 100000}'
-
-# Increase Default Search Results Returned for paradrop_event_triggers Index
-curl -k -u "$USER:$PASSWD" -XPUT -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_event_triggers/_settings' -d '{"index.max_result_window": 100000}'
-
-# Increase Default Search Results Returned for paradrop_events Index
-curl -k -u "$USER:$PASSWD" -XPUT -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop_events/_settings' -d '{"index.max_result_window": 100000}'
-
-# Setup Single Node Cluster Index Replica Count
-curl -k -u "$USER:$PASSWD" -XPUT -H 'Content-Type: application/json' 'https://127.0.0.1:9200/paradrop*/_settings' -d'{"index":{"number_of_replicas":0}}'
-curl -k -u "$USER:$PASSWD" -XPUT -H 'Content-Type: application/json' 'https://127.0.0.1:9200/security*/_settings' -d'{"index":{"number_of_replicas":0}}'
+for arg in "$@"; do
+  if [ "$1" = "demo" ]; then
+    add_mappings
+    add_configs
+    add_tokens
+    add_users
+    add_hosts
+    add_reports
+    add_event_triggers
+    add_events
+    add_changes
+    exit 0
+  fi
+  "$arg"
+done

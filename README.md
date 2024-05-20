@@ -18,6 +18,8 @@ paradrop is an open source, cybersecurity asset management tool that collects op
 
 ```bash
 make local
+# Optional: Load test / example demo data
+make seed
 ```
 
 > 🖥️  **Vagrant** Method

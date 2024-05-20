@@ -6,5 +6,9 @@
         "filter": ["lowercase"]
       }
     }
+  },
+  "index": {
+    "max_result_window": 100000,
+    "number_of_replicas": 0
   }
 }

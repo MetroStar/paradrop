@@ -3,7 +3,7 @@ from flask_setup import api, logger
 from view_resources.search_view import GetModalData, HostsView, ContainersView, SoftwareView, VulnerabilitiesView, HostAssessmentView, EventsView, AuditView, ChangesView
 from health_resources.health_check import HealthCheck
 from host_resources.add_host import AddHost
-from auth_resources.auth_tokens import AddUserToken, GetUserToken, UpdateUserToken, GetAgentToken, UpdateAgentToken#, GetCsrfToken
+from auth_resources.auth_tokens import AddUserToken, GetUserToken, UpdateUserToken, GetAgentToken, UpdateAgentToken
 from configs_resources.configs import ListConfigurations, UpdateConfigurations
 from event_resources.event_triggers import ListEventTriggers, AddEventTrigger, UpdateEventTrigger, DeleteEventTrigger
 from report_resources.reports import ListHostFields, ListReports, AddReport, UpdateReport, DeleteReport, DownloadReports
@@ -141,8 +141,6 @@ async def add_resources() -> Optional[bool]:
         api.add_resource(UserLogout, "/v1/logout")
 
         api.add_resource(AuthorizationCheck, "/v1/authorization-check")
-
-        # api.add_resource(GetCsrfToken, "/v1/get-csrf-token")
 
         api.add_resource(CreateAccount, "/v1/create-user")
 
