@@ -8,23 +8,25 @@
 -->
 
 <html lang="en">
-
   <!-- HEAD START -->
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>paradrop - Configuration Settings</title>
+    <title>paradrop - Prompt</title>
     <link rel="icon" type="image/x-icon" href="../static/assets/favicon.png">
-
+    
     <!-- CSS FILES STARTS -->
     <link href="../static/css/coreui/style.min.css" rel="stylesheet">
     <link href="../static/css_min/custom_style.min.css" rel="stylesheet">
     <!-- CSS FILES ENDS -->
 
+    <!-- SLIM SELECT CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.27.1/slimselect.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.27.1/slimselect.min.css" rel="stylesheet"></link>
+
     <!-- FONT AWESOME CDN -->
     <script src="https://kit.fontawesome.com/d8fe3770e3.js" crossorigin="anonymous"></script>
 
-    
   </head>
   <!-- HEAD END -->
 
@@ -39,7 +41,7 @@
         <a class="me-2 mt-1" href="/ui/"><img src="../static/assets/logo.png" alt="paradrop logo"></a>
       </div>
       <!-- SIDEBAR LOGO END -->
-      
+
       <!-- SIDEBAR OPTIONS START -->
       <ul class="sidebar-nav overflow-hidden" data-coreui="navigation" data-simplebar>
         <li class="nav-item d-xl-none">
@@ -53,7 +55,7 @@
         <li class="nav-item"><a class="nav-link text-light" href="/ui/prompt/">
           <span class="fa-solid fa-wand-magic-sparkles fa-lg ms-1 me-3"></span>
             Prompt</a></li>
-
+            
         <li class="nav-item"><a class="nav-link text-light" href="/ui/reports/">
           <span class="fa-solid fa-heartbeat fa-lg ms-1 me-3"></span>
             Reports</a></li>
@@ -105,7 +107,7 @@
                   <span class="fas fa-home text-light"></span>
                   </a>
                   <span class="fas fa-solid fa-chevron-right mx-2"></span>
-                  Configuration Settings
+                  Prompt
                 </h6>
               </ul>
             </div>
@@ -136,44 +138,89 @@
       <!-- HEADER END -->
 
       <!-- BODY CONTENT START-->
-      <!-- CONTENT CONTAINER START -->
+      <!-- PROMPT CONTAINER START -->
       <div class="container-fluid">
 
-        <!-- ROW START -->
-        <div class="row rounded bg-white mx-2 mt-2 p-4 shadow">
+        <!-- PROMPT ROW START -->
+        <div class="row rounded bg-white mx-2 mt-2 p-4 pe-0 shadow">
 
-          <!-- CONFIGURATIONS SETTINGS FORM START -->
-          <form id="updateConfigurationsForm" method="POST" >
-            <div class="row">
-              <div class="col-12 mb-3 mt-1 me-2">
-                <h2 class="text-dark">Configuration Settings</h2>
+          <!--  PROMPT TITLE START -->
+          <div class="col mb-1 mt-1 me-2 d-flex justify-content-start">
+            <h2>Prompt</h2>
+          </div>
+          <!--  PROMPT TITLE END -->
+
+          <div class="col mb-2 mt-1 me-4 pe-0 d-flex justify-content-end">
+            <button class="btn btn-white text-dark border me-4" type="button"
+              data-coreui-toggle="modal" data-coreui-target="#addReportModal"
+              id="copyChat" aria-label="Copy entire chat">
+              Copy Chat
+            </button>
+            <button class="btn btn-white text-dark border" type="button"
+              data-coreui-toggle="modal" data-coreui-target="#addReportModal"
+              id="clearChat" aria-label="Clear chat history">
+              Clear Chat
+            </button>            
+          </div>
+      
+          <div class="container d-flex flex-column flex-grow-1">
+            <div class="chat-container" id="chatContainer">
+              <div class="message-group system-group">
+                <div class="message-label">Paradrop AI</div>
+                <div class="chat-message system-message">
+                  <button class="copy-button" aria-label="Copy message">📋</button>
+                  Hello! What are you searching for?
+                </div>
               </div>
-              <div class="col-12 mb-3 me-2">
-                <label for="clean_hosts_days_interval">Clean Hosts Days</label>
-                <input class="form-control" type="number" id="clean_hosts_days_interval" name="clean_hosts_days_interval">
+            </div>
+          </div>
+      
+          <div class="input-container">
+            <div class="container">
+              <div class="input-group">
+                <textarea
+                  class="form-control chat-input"
+                  id="chatInput"
+                  placeholder="Type your message here..."
+                  aria-label="Chat input"
+                ></textarea>
+                <button
+                  class="btn btn-danger text-light"
+                  type="button"
+                  id="sendMessage"
+                  aria-label="Send message"
+                >
+                  Send
+                </button>
+                <button
+                  class="btn btn-secondary text-light"
+                  type="button"
+                  id="clearInput"
+                  aria-label="Clear input"
+                >
+                  Clear
+                </button>
               </div>
-              <div class="col-12 mb-5 me-2">
-                <label for="clean_events_count">Clean Events Count</label>
-                <input class="form-control" type="number" id="clean_events_count" name="clean_events_count">
-              </div> 
-              <div class="col-12">
-                <button class="btn btn-danger text-light" type="submit">Update Configurations</button>
-          </form>
-          <!-- CONFIGURATIONS SETTINGS FORM END -->
+            </div>
+          </div>
+      
+          <div id="notificationBar" class="notification-bar"></div>
+
         </div>
-        <!-- ROW END -->
+        <!-- PROMPT ROW END -->
       </div>
-      <!-- CONTENT CONTAINER END -->
+      <!-- PROMPT CONTAINER END -->
       <!-- BODY CONTENT END-->
     </div> 
     <!-- WRAPPER END -->
+
     <!-- SCRIPTS START -->
     <!-- CoreUI and necessary plugins-->
     <script src="../static/js/coreui/coreui.bundle.min.js"></script>
     <script src="../static/js/simplebar/dist/simplebar.min.js"></script>
     <!-- Script that handles functionality for this HTML page -->
     <script type="module" src="../static/js_min/authorization_check.min.js" crossorigin="anonymous"></script>
-    <script type="module" src="../static/js_min/config_settings.min.js" crossorigin="anonymous"></script>
+    <script type="module" src="../static/js_min/prompt.min.js" crossorigin="anonymous"></script>
     <script type="module" src="../static/js_min/logout.min.js" crossorigin="anonymous"></script>
     <!-- SCRIPTS END -->
   </body>
